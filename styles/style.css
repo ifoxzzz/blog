@@ -1,0 +1,32 @@
+body {
+    background-color: #eabd9e;
+}
+
+#container {
+    margin-top: 20%;
+}
+
+#logo {
+    margin: 0 auto;
+    width: 35%;
+    height: 35%;
+}
+
+#title {
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 8vw;
+}
+
+#qq {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 6vw;
+}
+
+#email {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 6vw;
+}
