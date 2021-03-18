@@ -5,8 +5,14 @@
 
 body {
     background-image: linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
-    width: 100wh;
-    height: 100vh;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -ms-background-size: cover;
 }
 
 #avatar {
