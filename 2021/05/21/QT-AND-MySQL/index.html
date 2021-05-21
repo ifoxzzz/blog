@@ -20,23 +20,29 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;foxzzz.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;}}</script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="狐狸の窝">
-<meta property="og:url" content="http://foxzzz.com/index.html">
+<meta name="description" content="QT连接MySQL的坑不少，记录自己的踩坑经历以备后查。 驱动文件驱动是指 QSqlDatabase::drivers() 输出的列表项，以下是输出项与对应驱动文件所在位置：  &#x2F;Qt&#x2F;Qt5.12.10&#x2F;5.12.10&#x2F;mingw73_64&#x2F;plugins&#x2F;sqldrivers&#x2F;*.dll  这里的5.12.10是我安装的QT版本，mingw73是我安装的mingw版本，64是采用64位编译，每">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QT连接MySQL遇到的坑">
+<meta property="og:url" content="http://foxzzz.com/2021/05/21/QT-AND-MySQL/index.html">
 <meta property="og:site_name" content="狐狸の窝">
+<meta property="og:description" content="QT连接MySQL的坑不少，记录自己的踩坑经历以备后查。 驱动文件驱动是指 QSqlDatabase::drivers() 输出的列表项，以下是输出项与对应驱动文件所在位置：  &#x2F;Qt&#x2F;Qt5.12.10&#x2F;5.12.10&#x2F;mingw73_64&#x2F;plugins&#x2F;sqldrivers&#x2F;*.dll  这里的5.12.10是我安装的QT版本，mingw73是我安装的mingw版本，64是采用64位编译，每">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-21T02:27:05.000Z">
+<meta property="article:modified_time" content="2021-05-21T04:56:39.624Z">
 <meta property="article:author" content="foxzzz">
+<meta property="article:tag" content="QT">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://foxzzz.com/">
+<link rel="canonical" href="http://foxzzz.com/2021/05/21/QT-AND-MySQL/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:true,&quot;isPost&quot;:false,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;&quot;,&quot;path&quot;:&quot;index.html&quot;,&quot;title&quot;:&quot;&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;foxzzz.com&#x2F;2021&#x2F;05&#x2F;21&#x2F;QT-AND-MySQL&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;05&#x2F;21&#x2F;QT-AND-MySQL&#x2F;&quot;,&quot;title&quot;:&quot;QT连接MySQL遇到的坑&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>狐狸の窝</title><script src="/js/config.js"></script>
+<title>QT连接MySQL遇到的坑 | 狐狸の窝</title><script src="/js/config.js"></script>
   
 
 
@@ -91,7 +97,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -104,6 +110,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">驱动文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8A%A8%E6%80%81%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">客户端动态库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">编译驱动</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -151,16 +158,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://foxzzz.com/2021/05/21/QT-AND-MySQL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -173,9 +181,9 @@
       <meta itemprop="name" content="狐狸の窝">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/05/21/QT-AND-MySQL/" class="post-title-link" itemprop="url">QT连接MySQL遇到的坑</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          QT连接MySQL遇到的坑
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -199,7 +207,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>QT连接MySQL的坑不少，记录自己的踩坑经历以备后查。</p>
+        <p>QT连接MySQL的坑不少，记录自己的踩坑经历以备后查。</p>
 <h2 id="驱动文件"><a href="#驱动文件" class="headerlink" title="驱动文件"></a>驱动文件</h2><p>驱动是指 <code>QSqlDatabase::drivers()</code> 输出的列表项，以下是输出项与对应驱动文件所在位置：</p>
 <blockquote>
 <p><strong>/Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/*.dll</strong></p>
@@ -245,7 +253,6 @@
 </blockquote>
 <p>目录下即可。</p>
 
-      
     </div>
 
     
@@ -253,11 +260,17 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/QT/" rel="tag"># QT</a>
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
     </footer>
   </article>
 </div>
+
 
 
 
