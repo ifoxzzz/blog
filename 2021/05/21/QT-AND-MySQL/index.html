@@ -28,7 +28,7 @@
 <meta property="og:description" content="QT 连接 MySQL 的坑不少，记录自己的踩坑经历以备后查。 驱动文件驱动是指 QSqlDatabase::drivers() 输出的列表项，以下是输出项与对应驱动文件所在位置：  Qt&#x2F;Qt5.12.10&#x2F;5.12.10&#x2F;mingw73_64&#x2F;plugins&#x2F;sqldrivers&#x2F;*.dll  这里的5.12.10是我安装的 QT 版本，mingw73 是我安装的 mingw 版本，64是采用">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-21T02:27:05.000Z">
-<meta property="article:modified_time" content="2021-05-21T06:03:03.949Z">
+<meta property="article:modified_time" content="2021-05-21T06:21:40.827Z">
 <meta property="article:author" content="foxzzz">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="QT">
@@ -195,7 +195,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-05-21 10:27:05 / Modified: 14:03:03" itemprop="dateCreated datePublished" datetime="2021-05-21T10:27:05+08:00">2021-05-21</time>
+      <time title="Created: 2021-05-21 10:27:05 / Modified: 14:21:40" itemprop="dateCreated datePublished" datetime="2021-05-21T10:27:05+08:00">2021-05-21</time>
     </span>
 
   
@@ -244,14 +244,22 @@
 <p>C:\plugins\sqldrivers\</p>
 </blockquote>
 <p>在QT中只需要执行 <strong>编译</strong> 操作而不需要执行 <strong>编译运行</strong> 操作，因为它编译的是dll，不是可执行文件，如果 <strong>编译运行</strong> 将出现找不到执行文件的错误提示。</p>
-<p>编译过程中可能出现找不到 <em>qtsqldrivers-config.pri</em> 的错误提示，这时候可以找一找 <em>qtsqldrivers-config.pri</em> 所在的上级目录是否有一个 <em>configure.pri</em>文件存在，如果存在，则打开 <em>qsqldriverbase.pri</em> 作以下修改：</p>
+<p>编译过程中可能出现找不到 <em>qtsqldrivers-config.pri</em> 的错误提示，这时候可以找一找 </p>
+<blockquote>
+<p>Qt/Qt5.12.10/5.12.10/Src/qtbase/src/plugins/sqldrivers/qsqldriverbase.pri</p>
+</blockquote>
+<p>所在的同级目录是否有一个 <em>configure.pri</em>文件存在，如果存在，则打开 <em>qsqldriverbase.pri</em> 作以下修改：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># include($$shadowed($$PWD)/qtsqldrivers-config.pri)</span><br><span class="line">include(./configure.pri)</span><br></pre></td></tr></table></figure>
 
-<p>也就是注释第一句，添加第二句。操作成功会在以上目录生成以下两个dll：</p>
+<p>也就是注释第一句，添加第二句。操作成功会在目录</p>
+<blockquote>
+<p>C:\plugins\sqldrivers\</p>
+</blockquote>
+<p>生成以下两个dll</p>
 <blockquote>
 <p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
 </blockquote>
-<p>将之拷贝到一下目录即可：</p>
+<p>将之拷贝到以下目录即可：</p>
 <blockquote>
 <p><strong>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/</strong></p>
 </blockquote>
