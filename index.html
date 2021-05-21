@@ -123,7 +123,7 @@
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -186,7 +186,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-05-21 10:27:05 / Modified: 12:56:39" itemprop="dateCreated datePublished" datetime="2021-05-21T10:27:05+08:00">2021-05-21</time>
+      <time title="Created: 2021-05-21 10:27:05 / Modified: 14:03:03" itemprop="dateCreated datePublished" datetime="2021-05-21T10:27:05+08:00">2021-05-21</time>
     </span>
 
   
@@ -199,27 +199,27 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>QT连接MySQL的坑不少，记录自己的踩坑经历以备后查。</p>
+          <p><strong>QT</strong> 连接 <strong>MySQL</strong> 的坑不少，记录自己的踩坑经历以备后查。</p>
 <h2 id="驱动文件"><a href="#驱动文件" class="headerlink" title="驱动文件"></a>驱动文件</h2><p>驱动是指 <code>QSqlDatabase::drivers()</code> 输出的列表项，以下是输出项与对应驱动文件所在位置：</p>
 <blockquote>
-<p><strong>/Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/*.dll</strong></p>
+<p><strong>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/*.dll</strong></p>
 </blockquote>
-<p>这里的5.12.10是我安装的QT版本，mingw73是我安装的mingw版本，64是采用64位编译，每个人的配置会有所不同，可根据给出的模式检查对应QT目录是否存在以下两个dll：</p>
+<p>这里的5.12.10是我安装的 <strong>QT</strong> 版本，<strong>mingw73</strong> 是我安装的 <strong>mingw</strong> 版本，64是采用64位编译，每个人的配置会有所不同，可根据给出的模式检查对应 <strong>QT</strong> 目录是否存在以下两个dll：</p>
 <blockquote>
 <p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
 </blockquote>
 <p>如果缺少，那么 <code>QSqlDatabase::drivers()</code> 输出项将不会出现 <em>‘QMYSQL’</em> ，这是造成无法连接的原因之一，这时候我们就需要自己编译这两个文件，如何编译后面再说。</p>
-<h2 id="客户端动态库"><a href="#客户端动态库" class="headerlink" title="客户端动态库"></a>客户端动态库</h2><p>如果驱动文件存在，但是无法连接MySQL，那就是缺少MySQL的客户端动态库，找到MySQL的安装目录所对应的 <em>libmysql.dll</em> 文件：</p>
+<h2 id="客户端动态库"><a href="#客户端动态库" class="headerlink" title="客户端动态库"></a>客户端动态库</h2><p>如果驱动文件存在，但是无法连接 <strong>MySQL</strong> ，那就是缺少 <strong>MySQL</strong> 的客户端动态库，找到 <strong>MySQL</strong> 的安装目录所对应的 <em>libmysql.dll</em> 文件：</p>
 <blockquote>
 <p>mysql-8.0.21-winx64/lib/libmysql.dll</p>
 </blockquote>
-<p>这里的8.0.21是我的mysql版本，winx64是64位环境，可与之对照，将 <em>libmysql.dll</em> 复制到：</p>
+<p>这里的8.0.21是我的 <strong>MySQL</strong> 版本，winx64是64位环境，可与之对照，将 <em>libmysql.dll</em> 复制到：</p>
 <blockquote>
 <p>Qt/Qt5.12.10/5.12.10/mingw73_64/bin/</p>
 </blockquote>
 <p>目录下，注意一点，x86的客户端动态库要放在对应的x86目录，x64的客户端动态库要放在对应的x64目录，别放错了。</p>
-<p>重新编译执行对应版本的QT程序，如果能成功连接MySQL，那么问题解决，如果不行，说明 <em>驱动文件</em> 和 <em>客户端动态库</em> 版本不兼容，需要自己重新编译驱动文件（这里的原因多半是MySQL的客户端动态库是8.x.xx版本而QT中的驱动文件是针对MySQL的5.x.xx版本编译的）。如果不想亲自编译驱动文件，也有快速解决方法，就是下载低版本的MySQL，从中找出 <em>libmysql.dll</em> 替换。说明一点，MySQL客户端动态库需要与QT中的x86/x64对应，但是无须跟安装的MySQL服务端对应，换言之，x86的客户端动态库是可以连接x64的MySQL服务端的。</p>
-<h2 id="编译驱动"><a href="#编译驱动" class="headerlink" title="编译驱动"></a>编译驱动</h2><p>这里是坑最多的地方，QT有些版本是自带MySQL驱动文件的，但有些版本却又不带，原因可能是MySQL版本更新导致客户端动态库变化，QT预制的编译好的版本太老无法兼容新的MySQL版本，所以干脆把这件事留给工程师自己做。</p>
+<p>重新编译执行对应版本的 <strong>QT</strong> 程序，如果能成功连接 <strong>MySQL</strong> ，那么问题解决，如果不行，说明 <em>驱动文件</em> 和 <em>客户端动态库</em> 版本不兼容，需要自己重新编译驱动文件（这里的原因多半是 <strong>MySQL</strong> 的客户端动态库是8.x.xx版本而QT中的驱动文件是针对 <strong>MySQL</strong> 的5.x.xx版本编译的）。如果不想亲自编译驱动文件，也有快速解决方法，就是下载低版本的 <strong>MySQL</strong>，从中找出 <em>libmysql.dll</em> 替换。需要说明一点， <strong>MySQL</strong> 客户端动态库需要与 <strong>QT</strong> 中的x86/x64对应，但是无须跟安装的 <strong>MySQL</strong> 服务端对应，换言之，x86的客户端动态库是可以连接x64的 <strong>MySQL</strong> 服务端的。</p>
+<h2 id="编译驱动"><a href="#编译驱动" class="headerlink" title="编译驱动"></a>编译驱动</h2><p>这里是坑最多的地方，<strong>QT</strong> 有些版本是自带 <strong>MySQL</strong> 驱动文件的，但有些版本却又不带，原因可能是 <strong>MySQL</strong> 版本更新导致客户端动态库变化， <strong>QT</strong> 预制的编译好的版本太老无法兼容新的 <strong>MySQL</strong> 版本，所以干脆把这件事留给工程师自己做。</p>
 <p>找到如下工程：</p>
 <blockquote>
 <p>Qt/Qt5.12.10/5.12.10/Src/qtbase/src/plugins/sqldrivers/mysql/mysql.pro</p>
@@ -230,20 +230,22 @@
 <p>加入两行新语句，注意一点，以下的 <em>C:/mysql-8.0.16-winx64/</em> 是我机器的 <em>MySQL</em> 安装路径，需要换成你自己的，另外，如果路径中含有空格，需要将路径首尾加上双引号：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INCLUDEPATH += C:/mysql-8.0.16-winx64/include/</span><br><span class="line">LIBS += C:mysql-8.0.16-winx64/lib/libmysql.lib</span><br></pre></td></tr></table></figure>
 
-<p>有人说要再加上 <em>DESTDIR</em> 去指定编译的驱动文件生成位置，这个我测试没有效果，不加的话会自动生成到QT安装目录的磁盘根目录下，比如我的QT安装在C盘，那么就是生成在：</p>
+<p>有人说要再加上 <em>DESTDIR</em> 去指定编译的驱动文件生成位置，这个我测试没有效果，不加的话会自动生成到QT安装目录的磁盘根目录下，比如我的 <strong>QT</strong> 安装在C盘，那么就是生成在：</p>
 <blockquote>
 <p>C:\plugins\sqldrivers\</p>
 </blockquote>
-<p>在QT中只需要执行<strong>编译</strong>操作而不需要执行<strong>编译运行</strong>操作，因为它编译的是dll，不是可执行文件，如果<strong>编译运行</strong>将出现找不到执行文件的错误提示。</p>
-<p>操作成功会在以上目录生成以下两个dll</p>
+<p>在QT中只需要执行 <strong>编译</strong> 操作而不需要执行 <strong>编译运行</strong> 操作，因为它编译的是dll，不是可执行文件，如果 <strong>编译运行</strong> 将出现找不到执行文件的错误提示。</p>
+<p>编译过程中可能出现找不到 <em>qtsqldrivers-config.pri</em> 的错误提示，这时候可以找一找 <em>qtsqldrivers-config.pri</em> 所在的上级目录是否有一个 <em>configure.pri</em>文件存在，如果存在，则打开 <em>qsqldriverbase.pri</em> 作以下修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># include($$shadowed($$PWD)/qtsqldrivers-config.pri)</span><br><span class="line">include(./configure.pri)</span><br></pre></td></tr></table></figure>
+
+<p>也就是注释第一句，添加第二句。操作成功会在以上目录生成以下两个dll：</p>
 <blockquote>
 <p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
 </blockquote>
-<p>将之拷贝到</p>
+<p>将之拷贝到一下目录即可：</p>
 <blockquote>
-<p><strong>/Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/</strong></p>
+<p><strong>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/</strong></p>
 </blockquote>
-<p>目录下即可。</p>
 
       
     </div>
