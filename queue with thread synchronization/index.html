@@ -20,33 +20,38 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;foxzzz.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
-<meta name="description" content="未信有情皆是累，但能无病便为仙。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="狐狸の窝">
-<meta property="og:url" content="http://foxzzz.com/index.html">
+<meta name="description" content="这几天需要使用 pthread 实现了一个线程同步功能的 Queue，过程中踩了两个坑：  pthread_cond_wait() 需要放在 pthread_mutex_lock() 和 pthread_mutex_unlock() 之中，而不是之外，否则将发生死锁，这里的概念有点绕，需要理解 pthread_cond_wait() 是会释放当前的 lock，以便其他线程进入临界区，当其他线程 p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pthread 实现线程同步功能的 Queue">
+<meta property="og:url" content="http://foxzzz.com/queue%20with%20thread%20synchronization/index.html">
 <meta property="og:site_name" content="狐狸の窝">
-<meta property="og:description" content="未信有情皆是累，但能无病便为仙。">
+<meta property="og:description" content="这几天需要使用 pthread 实现了一个线程同步功能的 Queue，过程中踩了两个坑：  pthread_cond_wait() 需要放在 pthread_mutex_lock() 和 pthread_mutex_unlock() 之中，而不是之外，否则将发生死锁，这里的概念有点绕，需要理解 pthread_cond_wait() 是会释放当前的 lock，以便其他线程进入临界区，当其他线程 p">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://foxzzz.com/queue%20with%20thread%20synchronization/1.png">
+<meta property="og:image" content="http://foxzzz.com/queue%20with%20thread%20synchronization/2.png">
+<meta property="og:image" content="http://foxzzz.com/queue%20with%20thread%20synchronization/3.png">
+<meta property="og:image" content="http://foxzzz.com/queue%20with%20thread%20synchronization/4.png">
+<meta property="og:image" content="http://foxzzz.com/queue%20with%20thread%20synchronization/5.png">
+<meta property="article:published_time" content="2021-05-25T07:40:57.000Z">
+<meta property="article:modified_time" content="2021-05-25T10:10:13.707Z">
 <meta property="article:author" content="foxzzz">
-<meta property="article:tag" content="c&#x2F;c++">
-<meta property="article:tag" content="c#">
-<meta property="article:tag" content="java">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="qt">
-<meta property="article:tag" content="mfc">
+<meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="linux">
-<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="pthread">
+<meta property="article:tag" content="queue">
+<meta property="article:tag" content="synchronization">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://foxzzz.com/queue%20with%20thread%20synchronization/1.png">
 
 
-<link rel="canonical" href="http://foxzzz.com/">
+<link rel="canonical" href="http://foxzzz.com/queue%20with%20thread%20synchronization/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:true,&quot;isPost&quot;:false,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;&quot;,&quot;path&quot;:&quot;index.html&quot;,&quot;title&quot;:&quot;&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;foxzzz.com&#x2F;queue%20with%20thread%20synchronization&#x2F;&quot;,&quot;path&quot;:&quot;queue with thread synchronization&#x2F;&quot;,&quot;title&quot;:&quot;pthread 实现线程同步功能的 Queue&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>狐狸の窝</title><script src="/js/config.js"></script>
+<title>pthread 实现线程同步功能的 Queue | 狐狸の窝</title><script src="/js/config.js"></script>
   
 
 
@@ -184,16 +189,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://foxzzz.com/queue%20with%20thread%20synchronization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,9 +212,9 @@
       <meta itemprop="name" content="狐狸の窝">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/queue%20with%20thread%20synchronization/" class="post-title-link" itemprop="url">pthread 实现线程同步功能的 Queue</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          pthread 实现线程同步功能的 Queue
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -232,7 +238,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>这几天需要使用 <strong>pthread</strong> 实现了一个线程同步功能的 <strong>Queue</strong>，过程中踩了两个坑：</p>
+        <p>这几天需要使用 <strong>pthread</strong> 实现了一个线程同步功能的 <strong>Queue</strong>，过程中踩了两个坑：</p>
 <ul>
 <li><p><strong>pthread_cond_wait()</strong> 需要放在 <strong>pthread_mutex_lock()</strong> 和 <strong>pthread_mutex_unlock()</strong> 之中，而不是之外，否则将发生死锁，这里的概念有点绕，需要理解 <strong>pthread_cond_wait()</strong> 是会释放当前的 <em>lock</em>，以便其他线程进入临界区，当其他线程 <strong>pthread_cond_signal()</strong> 的时候，<em>wait</em> 线程被唤醒，又重新获得锁；</p>
 </li>
@@ -264,7 +270,6 @@
 <p>程序打印输出呈现多对多模式：<br><img src="/queue%20with%20thread%20synchronization/5.png" alt="Many to One"></p>
 <p>以上是几个示例的演示，配置比较简单，可按自己意思设计（创建生产端另外的两个参数一个是起始数值，一个是生产数量）。</p>
 
-      
     </div>
 
     
@@ -272,292 +277,29 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/C-C/" rel="tag"># C/C++</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/pthread/" rel="tag"># pthread</a>
+              <a href="/tags/queue/" rel="tag"># queue</a>
+              <a href="/tags/synchronization/" rel="tag"># synchronization</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/site%20collection/" rel="prev" title="收录一些有用的网站">
+                  <i class="fa fa-chevron-left"></i> 收录一些有用的网站
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://foxzzz.com/site%20collection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="foxzzz">
-      <meta itemprop="description" content="未信有情皆是累，但能无病便为仙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="狐狸の窝">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/site%20collection/" class="post-title-link" itemprop="url">收录一些有用的网站</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-05-22 18:01:41 / 修改时间：18:19:40" itemprop="dateCreated datePublished" datetime="2021-05-22T18:01:41+08:00">2021-05-22</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>平时学习会遇到一些有用的网站，将它们收录在这里。</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://csacademy.com/app/graph_editor/">图论算法演示器</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.processon.com/">在线作图工具</a></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://foxzzz.com/vs2019%20for%20linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="foxzzz">
-      <meta itemprop="description" content="未信有情皆是累，但能无病便为仙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="狐狸の窝">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/vs2019%20for%20linux/" class="post-title-link" itemprop="url">vs2019下的linux环境开发</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-05-22 13:36:47 / 修改时间：14:58:02" itemprop="dateCreated datePublished" datetime="2021-05-22T13:36:47+08:00">2021-05-22</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>对习惯了 <em>windows</em> 的我来说，<em>vs2019</em> 有个绝妙的功能就是可以进行 <em>linux</em> 环境下的 <em>c/c++</em> 开发，而在此之前我只能是在 <em>windows</em> 上编辑代码，然后通过 <em>github</em> 同步到 <em>ubuntu</em> 上进行编译，整个过程需要来来回回折腾，所以 <em>vs2019</em> 的这项功能极大提高了我的生产力。</p>
-<p>以下记录一些使用过程中遇到的问题和解决方法。</p>
-<h2 id="linux头文件同步到本地"><a href="#linux头文件同步到本地" class="headerlink" title="linux头文件同步到本地"></a>linux头文件同步到本地</h2><p><em>unistd.h</em> 等头文件是unix/linux环境特有，windows上并不存在，所以在编写代码的时候用不了 <em>vs</em> 的智能感知，而且提示出错的红色波浪线让人看着很不舒服，解决办法就是将这类头文件从远程的 <em>linux</em> 机器同步过来，做法如下：</p>
-<ul>
-<li>从菜单栏中选择 <strong>Debug-&gt;Options…</strong></li>
-</ul>
-<p><img src="/vs2019%20for%20linux/1.png" alt="Debug-&gt;Options..."></p>
-<ul>
-<li><p>进入 <strong>Cross Platform-&gt;Connection Manager-&gt;Remote Headers IntelliSense Manager</strong>，从服务器列表勾选远程的 <em>linux</em> 服务器（因为我的 <em>linux</em> 放在本机的虚拟机中，所以是127.0.0.1）<br><img src="/vs2019%20for%20linux/2.png" alt="Cross Platform-&gt;Connection Manager-&gt;Remote Headers IntelliSense Manager"></p>
-</li>
-<li><p>可以看到智能感知起作用了<br><img src="/vs2019%20for%20linux/3.png" alt="Linux IntelliSense"></p>
-</li>
-</ul>
-<h2 id="pthread"><a href="#pthread" class="headerlink" title="pthread"></a>pthread</h2><p><em>pthrad</em> 是外部库，如工程中用到，需要在编译的时候手动加上 <em>-lpthread</em> 选项，否则会导致编译出错。但vs2019中没找到添加编译选项的设置，后来发现只要添加库依赖项就行，做法如下：</p>
-<ul>
-<li>从菜单栏中选择 <em>Project-&gt;xxx Properties</em></li>
-</ul>
-<p><img src="/vs2019%20for%20linux/4.png" alt="Project-&gt;xxx Properties"></p>
-<ul>
-<li>进入 <em>Linker-&gt;Input-&gt;Library Dependencies</em>，添加上 <em>pthread</em>，重新编译就OK了<br><img src="/vs2019%20for%20linux/5.png" alt="Linker-&gt;Input-&gt;Library Dependencies"></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://foxzzz.com/QT%20to%20MySQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="foxzzz">
-      <meta itemprop="description" content="未信有情皆是累，但能无病便为仙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="狐狸の窝">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/QT%20to%20MySQL/" class="post-title-link" itemprop="url">QT连接MySQL遇到的坑</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-05-21 10:27:05" itemprop="dateCreated datePublished" datetime="2021-05-21T10:27:05+08:00">2021-05-21</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-22 11:11:41" itemprop="dateModified" datetime="2021-05-22T11:11:41+08:00">2021-05-22</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>QT</strong> 连接 <strong>MySQL</strong> 的坑不少，记录自己的踩坑经历以备后查。</p>
-<h2 id="驱动文件"><a href="#驱动文件" class="headerlink" title="驱动文件"></a>驱动文件</h2><p>驱动是指 <code>QSqlDatabase::drivers()</code> 输出的列表项，以下是输出项与对应驱动文件所在位置：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/*.dll</p>
-</blockquote>
-<p>这里的5.12.10是我安装的 <strong>QT</strong> 版本，<strong>mingw73</strong> 是我安装的 <strong>mingw</strong> 版本，64是采用64位编译，每个人的配置会有所不同，可根据给出的模式检查对应 <strong>QT</strong> 目录是否存在以下两个dll：</p>
-<blockquote>
-<p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
-</blockquote>
-<p>如果缺少，那么 <code>QSqlDatabase::drivers()</code> 输出项将不会出现 <em>‘QMYSQL’</em> ，这是造成无法连接的原因之一，这时候我们就需要自己编译这两个文件，如何编译后面再说。</p>
-<h2 id="客户端动态库"><a href="#客户端动态库" class="headerlink" title="客户端动态库"></a>客户端动态库</h2><p>如果驱动文件存在，但是无法连接 <strong>MySQL</strong> ，那就是缺少 <strong>MySQL</strong> 的客户端动态库，找到 <strong>MySQL</strong> 的安装目录所对应的 <em>libmysql.dll</em> 文件：</p>
-<blockquote>
-<p>mysql-8.0.21-winx64/lib/libmysql.dll</p>
-</blockquote>
-<p>这里的8.0.21是我的 <strong>MySQL</strong> 版本，winx64是64位环境，可与之对照，将 <em>libmysql.dll</em> 复制到：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/mingw73_64/bin/</p>
-</blockquote>
-<p>目录下，注意一点，x86的客户端动态库要放在对应的x86目录，x64的客户端动态库要放在对应的x64目录，别放错了。</p>
-<p>重新编译执行对应版本的 <strong>QT</strong> 程序，如果能成功连接 <strong>MySQL</strong> ，那么问题解决，如果不行，说明 <em>驱动文件</em> 和 <em>客户端动态库</em> 版本不兼容，需要自己重新编译驱动文件（这里的原因多半是 <strong>MySQL</strong> 的客户端动态库是8.x.xx版本而QT中的驱动文件是针对 <strong>MySQL</strong> 的5.x.xx版本编译的）。如果不想亲自编译驱动文件，也有快速解决方法，就是下载低版本的 <strong>MySQL</strong>，从中找出 <em>libmysql.dll</em> 替换。需要说明一点， <strong>MySQL</strong> 客户端动态库需要与 <strong>QT</strong> 中的x86/x64对应，但是无须跟安装的 <strong>MySQL</strong> 服务端对应，换言之，x86的客户端动态库是可以连接x64的 <strong>MySQL</strong> 服务端的。</p>
-<h2 id="编译驱动"><a href="#编译驱动" class="headerlink" title="编译驱动"></a>编译驱动</h2><p>这里是坑最多的地方，<strong>QT</strong> 有些版本是自带 <strong>MySQL</strong> 驱动文件的，但有些版本却又不带，原因可能是 <strong>MySQL</strong> 版本更新导致客户端动态库变化， <strong>QT</strong> 预制的编译好的版本太老无法兼容新的 <strong>MySQL</strong> 版本，所以干脆把这件事留给工程师自己做。</p>
-<p>找到如下工程：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/Src/qtbase/src/plugins/sqldrivers/mysql/mysql.pro</p>
-</blockquote>
-<p>启动 <em>Qt Creator</em>，将 <em>mysql.pro</em> 中的这行语句注释：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># QMAKE_USE += mysql</span><br></pre></td></tr></table></figure>
-
-<p>加入两行新语句，注意一点，以下的 <em>C:/mysql-8.0.16-winx64/</em> 是我机器的 <em>MySQL</em> 安装路径，需要换成你自己的，另外，如果路径中含有空格，需要将路径首尾加上双引号：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INCLUDEPATH += C:/mysql-8.0.16-winx64/include/</span><br><span class="line">LIBS += C:mysql-8.0.16-winx64/lib/libmysql.lib</span><br></pre></td></tr></table></figure>
-
-<p>有人说要再加上 <em>DESTDIR</em> 去指定编译的驱动文件生成位置，这个我测试没有效果，不加的话会自动生成到QT安装目录的磁盘根目录下，比如我的 <strong>QT</strong> 安装在C盘，那么就是生成在：</p>
-<blockquote>
-<p>C:/plugins/sqldrivers/</p>
-</blockquote>
-<p>在QT中只需要执行 <strong>编译</strong> 操作而不需要执行 <strong>编译运行</strong> 操作，因为它编译的是dll，不是可执行文件，如果 <strong>编译运行</strong> 将出现找不到执行文件的错误提示。</p>
-<p>编译过程中可能出现找不到 <em>qtsqldrivers-config.pri</em> 的错误提示，这时候可以找一找 </p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/Src/qtbase/src/plugins/sqldrivers/qsqldriverbase.pri</p>
-</blockquote>
-<p>所在的同级目录是否有一个 <em>configure.pri</em>文件存在，如果存在，则打开 <em>qsqldriverbase.pri</em> 作以下修改：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># include($$shadowed($$PWD)/qtsqldrivers-config.pri)</span><br><span class="line">include(./configure.pri)</span><br></pre></td></tr></table></figure>
-
-<p>也就是注释第一句，添加第二句。操作成功会在目录</p>
-<blockquote>
-<p>C:/plugins/sqldrivers/</p>
-</blockquote>
-<p>生成以下两个dll</p>
-<blockquote>
-<p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
-</blockquote>
-<p>将之拷贝到以下目录即可：</p>
-<blockquote>
-<p><strong>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/</strong></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
