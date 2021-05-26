@@ -20,30 +20,34 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;foxzzz.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
-<meta name="description" content="QT 连接 MySQL 的坑不少，记录自己的踩坑经历以备后查。 驱动文件驱动是指 QSqlDatabase::drivers() 输出的列表项，以下是输出项与对应驱动文件所在位置：  Qt&#x2F;Qt5.12.10&#x2F;5.12.10&#x2F;mingw73_64&#x2F;plugins&#x2F;sqldrivers&#x2F;*.dll  这里的5.12.10是我安装的 QT 版本，mingw73 是我安装的 mingw 版本，64是采用">
+<meta name="description" content="今天又看到群里有人讨论 C++ 中 delete 和 delete[] 的区别，表层原因大家都了解，因为教科书上说得很明白：new 和 delete 需要配对使用， new[] 和 delete[] 需要配对使用。 但若问起在什么情况下 new[] 申请的资源可以使用 delete 释放而不会有任何问题，能讲清楚这点的人就很少了。因为这涉及到对 new、delete、new[]、delete[]">
 <meta property="og:type" content="article">
-<meta property="og:title" content="QT连接MySQL遇到的坑">
-<meta property="og:url" content="http://foxzzz.com/QT%20to%20MySQL/index.html">
+<meta property="og:title" content="C++中delete和delete[]的深层区别">
+<meta property="og:url" content="http://foxzzz.com/cpp-array-delete/index.html">
 <meta property="og:site_name" content="狐狸の窝">
-<meta property="og:description" content="QT 连接 MySQL 的坑不少，记录自己的踩坑经历以备后查。 驱动文件驱动是指 QSqlDatabase::drivers() 输出的列表项，以下是输出项与对应驱动文件所在位置：  Qt&#x2F;Qt5.12.10&#x2F;5.12.10&#x2F;mingw73_64&#x2F;plugins&#x2F;sqldrivers&#x2F;*.dll  这里的5.12.10是我安装的 QT 版本，mingw73 是我安装的 mingw 版本，64是采用">
+<meta property="og:description" content="今天又看到群里有人讨论 C++ 中 delete 和 delete[] 的区别，表层原因大家都了解，因为教科书上说得很明白：new 和 delete 需要配对使用， new[] 和 delete[] 需要配对使用。 但若问起在什么情况下 new[] 申请的资源可以使用 delete 释放而不会有任何问题，能讲清楚这点的人就很少了。因为这涉及到对 new、delete、new[]、delete[]">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-21T02:27:05.000Z">
-<meta property="article:modified_time" content="2021-05-22T03:11:41.463Z">
+<meta property="og:image" content="http://foxzzz.com/cpp-array-delete/1.png">
+<meta property="og:image" content="http://foxzzz.com/cpp-array-delete/2.png">
+<meta property="og:image" content="http://foxzzz.com/cpp-array-delete/3.png">
+<meta property="article:published_time" content="2021-05-25T16:10:05.000Z">
+<meta property="article:modified_time" content="2021-05-26T04:03:22.185Z">
 <meta property="article:author" content="foxzzz">
 <meta property="article:tag" content="C++">
-<meta property="article:tag" content="QT">
-<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="delete">
+<meta property="article:tag" content="delete[]">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://foxzzz.com/cpp-array-delete/1.png">
 
 
-<link rel="canonical" href="http://foxzzz.com/QT%20to%20MySQL/">
+<link rel="canonical" href="http://foxzzz.com/cpp-array-delete/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;foxzzz.com&#x2F;QT%20to%20MySQL&#x2F;&quot;,&quot;path&quot;:&quot;QT to MySQL&#x2F;&quot;,&quot;title&quot;:&quot;QT连接MySQL遇到的坑&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;foxzzz.com&#x2F;cpp-array-delete&#x2F;&quot;,&quot;path&quot;:&quot;cpp-array-delete&#x2F;&quot;,&quot;title&quot;:&quot;C++中delete和delete[]的深层区别&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>QT连接MySQL遇到的坑 | 狐狸の窝</title><script src="/js/config.js"></script>
+<title>C++中delete和delete[]的深层区别 | 狐狸の窝</title><script src="/js/config.js"></script>
   
 
 
@@ -110,7 +114,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -123,7 +127,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">驱动文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8A%A8%E6%80%81%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">客户端动态库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">编译驱动</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -197,7 +200,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://foxzzz.com/QT%20to%20MySQL/">
+    <link itemprop="mainEntityOfPage" href="http://foxzzz.com/cpp-array-delete/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -210,7 +213,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          QT连接MySQL遇到的坑
+          C++中delete和delete[]的深层区别
         </h1>
 
         <div class="post-meta-container">
@@ -220,16 +223,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-05-21 10:27:05" itemprop="dateCreated datePublished" datetime="2021-05-21T10:27:05+08:00">2021-05-21</time>
+      <time title="创建时间：2021-05-26 00:10:05 / 修改时间：12:03:22" itemprop="dateCreated datePublished" datetime="2021-05-26T00:10:05+08:00">2021-05-26</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-22 11:11:41" itemprop="dateModified" datetime="2021-05-22T11:11:41+08:00">2021-05-22</time>
-      </span>
 
   
       </div>
@@ -239,14 +236,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>1.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -257,61 +254,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>QT</strong> 连接 <strong>MySQL</strong> 的坑不少，记录自己的踩坑经历以备后查。</p>
-<h2 id="驱动文件"><a href="#驱动文件" class="headerlink" title="驱动文件"></a>驱动文件</h2><p>驱动是指 <code>QSqlDatabase::drivers()</code> 输出的列表项，以下是输出项与对应驱动文件所在位置：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/*.dll</p>
-</blockquote>
-<p>这里的5.12.10是我安装的 <strong>QT</strong> 版本，<strong>mingw73</strong> 是我安装的 <strong>mingw</strong> 版本，64是采用64位编译，每个人的配置会有所不同，可根据给出的模式检查对应 <strong>QT</strong> 目录是否存在以下两个dll：</p>
-<blockquote>
-<p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
-</blockquote>
-<p>如果缺少，那么 <code>QSqlDatabase::drivers()</code> 输出项将不会出现 <em>‘QMYSQL’</em> ，这是造成无法连接的原因之一，这时候我们就需要自己编译这两个文件，如何编译后面再说。</p>
-<h2 id="客户端动态库"><a href="#客户端动态库" class="headerlink" title="客户端动态库"></a>客户端动态库</h2><p>如果驱动文件存在，但是无法连接 <strong>MySQL</strong> ，那就是缺少 <strong>MySQL</strong> 的客户端动态库，找到 <strong>MySQL</strong> 的安装目录所对应的 <em>libmysql.dll</em> 文件：</p>
-<blockquote>
-<p>mysql-8.0.21-winx64/lib/libmysql.dll</p>
-</blockquote>
-<p>这里的8.0.21是我的 <strong>MySQL</strong> 版本，winx64是64位环境，可与之对照，将 <em>libmysql.dll</em> 复制到：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/mingw73_64/bin/</p>
-</blockquote>
-<p>目录下，注意一点，x86的客户端动态库要放在对应的x86目录，x64的客户端动态库要放在对应的x64目录，别放错了。</p>
-<p>重新编译执行对应版本的 <strong>QT</strong> 程序，如果能成功连接 <strong>MySQL</strong> ，那么问题解决，如果不行，说明 <em>驱动文件</em> 和 <em>客户端动态库</em> 版本不兼容，需要自己重新编译驱动文件（这里的原因多半是 <strong>MySQL</strong> 的客户端动态库是8.x.xx版本而QT中的驱动文件是针对 <strong>MySQL</strong> 的5.x.xx版本编译的）。如果不想亲自编译驱动文件，也有快速解决方法，就是下载低版本的 <strong>MySQL</strong>，从中找出 <em>libmysql.dll</em> 替换。需要说明一点， <strong>MySQL</strong> 客户端动态库需要与 <strong>QT</strong> 中的x86/x64对应，但是无须跟安装的 <strong>MySQL</strong> 服务端对应，换言之，x86的客户端动态库是可以连接x64的 <strong>MySQL</strong> 服务端的。</p>
-<h2 id="编译驱动"><a href="#编译驱动" class="headerlink" title="编译驱动"></a>编译驱动</h2><p>这里是坑最多的地方，<strong>QT</strong> 有些版本是自带 <strong>MySQL</strong> 驱动文件的，但有些版本却又不带，原因可能是 <strong>MySQL</strong> 版本更新导致客户端动态库变化， <strong>QT</strong> 预制的编译好的版本太老无法兼容新的 <strong>MySQL</strong> 版本，所以干脆把这件事留给工程师自己做。</p>
-<p>找到如下工程：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/Src/qtbase/src/plugins/sqldrivers/mysql/mysql.pro</p>
-</blockquote>
-<p>启动 <em>Qt Creator</em>，将 <em>mysql.pro</em> 中的这行语句注释：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># QMAKE_USE += mysql</span><br></pre></td></tr></table></figure>
-
-<p>加入两行新语句，注意一点，以下的 <em>C:/mysql-8.0.16-winx64/</em> 是我机器的 <em>MySQL</em> 安装路径，需要换成你自己的，另外，如果路径中含有空格，需要将路径首尾加上双引号：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INCLUDEPATH += C:/mysql-8.0.16-winx64/include/</span><br><span class="line">LIBS += C:mysql-8.0.16-winx64/lib/libmysql.lib</span><br></pre></td></tr></table></figure>
-
-<p>有人说要再加上 <em>DESTDIR</em> 去指定编译的驱动文件生成位置，这个我测试没有效果，不加的话会自动生成到QT安装目录的磁盘根目录下，比如我的 <strong>QT</strong> 安装在C盘，那么就是生成在：</p>
-<blockquote>
-<p>C:/plugins/sqldrivers/</p>
-</blockquote>
-<p>在QT中只需要执行 <strong>编译</strong> 操作而不需要执行 <strong>编译运行</strong> 操作，因为它编译的是dll，不是可执行文件，如果 <strong>编译运行</strong> 将出现找不到执行文件的错误提示。</p>
-<p>编译过程中可能出现找不到 <em>qtsqldrivers-config.pri</em> 的错误提示，这时候可以找一找 </p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/Src/qtbase/src/plugins/sqldrivers/qsqldriverbase.pri</p>
-</blockquote>
-<p>所在的同级目录是否有一个 <em>configure.pri</em>文件存在，如果存在，则打开 <em>qsqldriverbase.pri</em> 作以下修改：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># include($$shadowed($$PWD)/qtsqldrivers-config.pri)</span><br><span class="line">include(./configure.pri)</span><br></pre></td></tr></table></figure>
-
-<p>也就是注释第一句，添加第二句。操作成功会在目录</p>
-<blockquote>
-<p>C:/plugins/sqldrivers/</p>
-</blockquote>
-<p>生成以下两个dll</p>
-<blockquote>
-<p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
-</blockquote>
-<p>将之拷贝到以下目录即可：</p>
-<blockquote>
-<p><strong>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/</strong></p>
-</blockquote>
+        <p>今天又看到群里有人讨论 <strong>C++</strong> 中 <strong>delete</strong> 和 <strong>delete[]</strong> 的区别，表层原因大家都了解，因为教科书上说得很明白：<strong>new</strong> 和 <strong>delete</strong> 需要配对使用， <strong>new[]</strong> 和 <strong>delete[]</strong> 需要配对使用。</p>
+<p>但若问起在什么情况下 <strong>new[]</strong> 申请的资源可以使用 <strong>delete</strong> 释放而不会有任何问题，能讲清楚这点的人就很少了。因为这涉及到对 <strong>new、delete、new[]、delete[]</strong> 内部实现机制的理解。</p>
+<p>简单来说， <strong>delete</strong> 需要调用一个元素的析构函数，而 <strong>delete[]</strong> 需要调用数组中若干个元素的析构函数，这里就牵涉到一个问题，就是 <strong>delete[]</strong> 如何知道数组中元素的数量？我们知道 <strong>delete[]</strong> 中的 <strong>[]</strong> 并不传入数值，所以这个数量不是 <strong>delete[]</strong> 提供过来的，而是 <strong>new[]</strong> 提供过来的， <strong>new[]</strong> 的时候需要将这个数量存储起来，以供在 <strong>delete[]</strong> 的时候能获取到对象的数量。而 <strong>new[]</strong> 的做法，就是将数量放入申请的动态内存的首地址对应的空间，并且不是返回内存的首地址，而是返回首地址（存放的是数量）之后的下一个内存地址（存放的是第一个元素的数据）。</p>
+<p>但是并不是所有的对象类型都需要调用析构函数，比如 <strong>int</strong> 等基本数据类型就不存在调用析构函数的情况，那么 <strong>delete[]</strong> 根本无需逐个元素调用析构函数，也就没必要在 <strong>new[]</strong> 的时候存入元素数量。</p>
+<p>还有一种情况，就是并非基本类型而是 <strong>struct/class</strong>，而且没有显式定义析构函数，这种情况并不会为析构函数产生任何代码，所以就和没有析构函数一样，是不会在 <strong>delete[]</strong> 的时候逐个调用析构函数，也就如上述的 <strong>int</strong> 等基本类型的情况一样，不会在 <strong>new[]</strong> 的时候存入数量。</p>
+<p>emmm….说完发现并不简单，所以我画了三张图来展现以上说的三种 <strong>new[]</strong> 时候的内存情况（果然一图胜千言啊！）：</p>
+<ul>
+<li>int作为基本类型：</li>
+</ul>
+<p><img src="/cpp-array-delete/1.png" alt="int *ptr = new int[5]"></p>
+<ul>
+<li>定义了一个class A，但是A并没有显式定义析构函数：</li>
+</ul>
+<p><img src="/cpp-array-delete/2.png" alt="A *ptr = new A[5]"></p>
+<ul>
+<li>定义了一个class B，并且B显式定义了析构函数：</li>
+</ul>
+<p><img src="/cpp-array-delete/3.png" alt="B *ptr = new B[5]"></p>
+<p>一眼就能看出，对于 <code>int *ptr = new int[5]</code> 和 <code>A *ptr = new A[5]</code> 其实使用 <strong>delete</strong> 或者 <strong>delete[]</strong> 都不会有任何区别，因为其行为不涉及析构函数调用，只是纯粹将传入的动态内存首地址进行释放；但是对于 <code>B *ptr = new B[5]</code> 却一定要使用 <strong>delete[]</strong> ，因为传过来的并不是真正的动态内存首地址， <strong>delete[]</strong> 的内部处理就会变成从传入的内存地址往前偏移获取真正的动态内存首地址，从而获取到数组元素的数量，通过数量逐个调用元素的析构函数，完了再用得到的真正的动态内存首地址释放动态内存。但若使用 <strong>delete</strong> 就会只调用第一个元素的析构函数，并且将第一个元素的地址作为动态内存首地址进行释放，而释放错误的内存地址（非申请时候动态内存的首地址）将发生严重错误，如在 <strong>visual studio</strong> 中会直接触发程序异常并崩溃。</p>
 
     </div>
 
@@ -329,7 +290,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://foxzzz.com/QT%20to%20MySQL/" title="QT连接MySQL遇到的坑">http://foxzzz.com/QT to MySQL/</a>
+      <a href="http://foxzzz.com/cpp-array-delete/" title="C++中delete和delete[]的深层区别">http://foxzzz.com/cpp-array-delete/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -339,19 +300,19 @@
 
           <div class="post-tags">
               <a href="/tags/C/" rel="tag"># C++</a>
-              <a href="/tags/QT/" rel="tag"># QT</a>
-              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+              <a href="/tags/delete/" rel="tag"># delete</a>
+              <a href="/tags/delete/" rel="tag"># delete[]</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/queue-with-thread-synchronization/" rel="prev" title="pthread 实现线程同步功能的 Queue">
+                  <i class="fa fa-chevron-left"></i> pthread 实现线程同步功能的 Queue
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/vs2019%20for%20linux/" rel="next" title="vs2019下的linux环境开发">
-                  vs2019下的linux环境开发 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
