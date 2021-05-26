@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://foxzzz.com/cpp-array-delete/</loc>
+    <lastmod>2021-05-26</lastmod>
+  </url>
+  <url>
     <loc>http://foxzzz.com/vs2019-for-linux/</loc>
     <lastmod>2021-05-26</lastmod>
   </url>
@@ -14,10 +18,6 @@
   </url>
   <url>
     <loc>http://foxzzz.com/QT-to-MySQL/</loc>
-    <lastmod>2021-05-26</lastmod>
-  </url>
-  <url>
-    <loc>http://foxzzz.com/cpp-array-delete/</loc>
     <lastmod>2021-05-26</lastmod>
   </url>
 </urlset> 
