@@ -223,7 +223,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-05-26 00:10:05 / 修改时间：16:52:53" itemprop="dateCreated datePublished" datetime="2021-05-26T00:10:05+08:00">2021-05-26</time>
+      <time title="创建时间：2021-05-26 00:10:05 / 修改时间：16:58:29" itemprop="dateCreated datePublished" datetime="2021-05-26T00:10:05+08:00">2021-05-26</time>
     </span>
 
   
@@ -254,7 +254,7 @@
     <div class="post-body" itemprop="articleBody">
           <p>今天又看到群里有人讨论 <strong>C++</strong> 中 <code>delete</code> 和 <code>delete[]</code> 的区别，表层原因大家都了解，因为教科书上说得很明白：<code>new</code> 和 <code>delete</code> 需配对使用， <code>new[]</code> 和 <code>delete[]</code> 需配对使用。</p>
 <p>但若问起在什么情况下针对 <code>new[]</code> 申请的资源可以使用 <code>delete</code> 释放而不会有任何问题，能讲清楚这点的人就很少了。因为这涉及到对 <code>new</code> 、 <code>delete</code> 、 <code>new[]</code> 、 <code>delete[]</code> 内部实现机制的理解。</p>
-<p>根本原因在于， <code>delete</code> 需要调用内存中一个元素的析构函数，而 <code>delete[]</code> 需要调用内存中若干个元素的析构函数，这里就牵涉出一个问题—— <code>delete[]</code> 是如何知道数组中元素的数量的？我们知道 <code>delete[]</code> 中的 <code>[]</code> 并不会传入参数，所以这个数量不会是 <code>delete[]</code> 传过来的，而是在 <code>new[]</code> 的时候保存的，只有这样才得以在 <code>delete[]</code> 的时候依据元素数量逐个调用析构函数。</p>
+<p>根本原因在于， <code>delete</code> 需要调用内存中一个元素的析构函数，而 <code>delete[]</code> 需要调用内存中若干个元素的析构函数，这里就牵涉出一个问题—— <code>delete[]</code> 是如何知道内存中元素的数量的？我们知道 <code>delete[]</code> 中的 <code>[]</code> 并不会传入参数，所以这个数量不会是 <code>delete[]</code> 传过来的，而是在 <code>new[]</code> 的时候保存的，只有这样才得以在 <code>delete[]</code> 的时候依据元素数量逐个调用析构函数。</p>
 <p>接下来说 <code>new[]</code> 如何存储这个数量，首先它会动态申请一段内存，然后在这段内存的首地址空间中存入元素数量，在这个空间之后的内存分配给各元素，<code>new[]</code> 的返回值并不是这段动态内存空间的首地址，而是动态内存空间中存放第一个元素的内存地址。</p>
 <p>以上说的是 <code>delete[]</code> 需要调用元素析构函数的情况，但是C++的哲学是 <strong>Zero-cost Abstraction</strong>，所以对于并没有显式定义析构函数的 <code>struct/class</code> 的对象元素来说，并不需要为其产生析构函数的代码，也就不需要在 <code>delete[]</code> 的时候调用元素的析构函数以增加无谓的运算开销，那么， <code>new[]</code> 也就不用存储这个元素数量。还有一种情况就是如 <code>int</code> 等基本类型作为空间元素的时候，也不存在析构函数的调用，所以跟没有显示定义析构函数的对象元素一样：在 <code>new[]</code> 时候不需要存储元素数量，在 <code>delete[]</code> 时候不需要调用析构函数。</p>
 <p>综上所述， <code>new[]</code> 和 <code>delete[]</code> 的具体行为受对象元素是否存在必须调用析构函数而有所不同。</p>
