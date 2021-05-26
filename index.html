@@ -219,7 +219,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-05-26 00:10:05 / 修改时间：00:44:03" itemprop="dateCreated datePublished" datetime="2021-05-26T00:10:05+08:00">2021-05-26</time>
+      <time title="创建时间：2021-05-26 00:10:05 / 修改时间：10:13:32" itemprop="dateCreated datePublished" datetime="2021-05-26T00:10:05+08:00">2021-05-26</time>
     </span>
 
   
@@ -250,7 +250,7 @@
 <li>定义了一个class B，并且B显式定义了析构函数：</li>
 </ul>
 <p><img src="/cpp%20array%20delete/3.png" alt="B *ptr = new B[5]"></p>
-<p>一眼就能看出，对于 <code>int *ptr = new int[5]</code> 和 <code>A *ptr = new A[5]</code> 其实使用 <strong>delete</strong> 或者 <strong>delete[]</strong> 不会有任何区别，因为并不涉及对析构函数的调用，但是对于 <code>B *ptr = new B[5]</code> 却一定要使用 <strong>delete[]</strong> ，因为传过来的并不是真正的动态内存首地址， <strong>delete[]</strong> 的内部处理就变成从这个地址之前的地址空间中获取数量并逐个调用元素的析构函数，然后用真正的动态内存首地址释放申请的动态内存。但若使用 <strong>delete</strong> 就只会调用第一个元素的析构函数，并且将第一个元素的地址作为动态内存的首地址空间去释放，而释放错误的内存地址（非申请时候动态内存的首地址）将发生严重错误，如在 <strong>visual studio</strong> 中将直接触发程序异常并崩溃。</p>
+<p>一眼就能看出，对于 <code>int *ptr = new int[5]</code> 和 <code>A *ptr = new A[5]</code> 其实使用 <strong>delete</strong> 或者 <strong>delete[]</strong> 都不会有任何区别，因为其行为不涉及析构函数调用，只是纯粹将传入的动态内存首地址进行释放；但是对于 <code>B *ptr = new B[5]</code> 却一定要使用 <strong>delete[]</strong> ，因为传过来的并不是真正的动态内存首地址， <strong>delete[]</strong> 的内部处理就会变成从传入的内存地址往前偏移获取真正的动态内存首地址，从而获取到数组元素的数量，通过数量逐个调用元素的析构函数，完了再用得到的真正的动态内存首地址释放动态内存。但若使用 <strong>delete</strong> 就会只调用第一个元素的析构函数，并且将第一个元素的地址作为动态内存首地址进行释放，而释放错误的内存地址（非申请时候动态内存的首地址）将发生严重错误，如在 <strong>visual studio</strong> 中会直接触发程序异常并崩溃。</p>
 
       
     </div>
