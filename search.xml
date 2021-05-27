@@ -3,7 +3,7 @@
   <entry>
     <title>C语言实现小根堆</title>
     <url>/C-Min-Heap/</url>
-    <content><![CDATA[<p>数据结构有 <strong>堆排序</strong> ，但 <strong>堆排序</strong> 在众多排序算法中的能力并不突出，这是因为排序并不是它体现优势的方面，而只能算是它附带的能力。</p>
+    <content><![CDATA[<p>数据结构有 <strong>堆排序</strong> ，但 <strong>堆排序</strong> 在众多排序算法中的能力并不突出，这是因为排序并不体现它的优势，而只能算是它附带的能力。</p>
 <p><strong>堆</strong> 的优势在于当从 <strong>堆</strong> 中弹出最小值（针对 <strong>小根堆</strong> 而言）时，或将某个数值放入 <strong>堆</strong> 中时，相比其他数据结构，它需要检索和调整其他数据元素的操作最少，效率最优，所以它更适合用来实现 <strong>优先队列</strong>，因为 <strong>优先队列</strong> 每次只会获取队列中优先级最高的数据元素，而不会操作其他数据元素，这和 <strong>小跟堆</strong> 每次只能弹出最小值而不能弹出其他值的行为一致。因此如 <strong>Dijkstra</strong> 算法在面临规模上万的顶点个数的时候，其内部权值检索环节采用 <strong>优先队列</strong> 实现的话能显著提升算法效率。</p>
 <p>堆通过两个关键性操作 <em>shift up</em>（上浮）和 <em>shift down</em> （下沉）维护堆内数据，<em>shift up</em> 用于往堆中插入新的数据元素，<em>shift down</em> 用于从堆中弹出数据元素。</p>
 <p>以下是我用C语言实现的 <strong>小根堆</strong> 的完整代码，以供参考。</p>
