@@ -2,56 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://foxzzz.com/C-Min-Heap/</loc>
+    <loc>https://www.foxzzz.com/C-Min-Heap/</loc>
     
     <lastmod>2021-05-27</lastmod>
     
   </url>
   
   <url>
-    <loc>http://foxzzz.com/cpp-array-delete/</loc>
+    <loc>https://www.foxzzz.com/cpp-array-delete/</loc>
     
     <lastmod>2021-05-27</lastmod>
     
   </url>
   
   <url>
-    <loc>http://foxzzz.com/QT-to-MySQL/</loc>
+    <loc>https://www.foxzzz.com/QT-to-MySQL/</loc>
     
     <lastmod>2021-05-26</lastmod>
     
   </url>
   
   <url>
-    <loc>http://foxzzz.com/vs2019-for-linux/</loc>
+    <loc>https://www.foxzzz.com/vs2019-for-linux/</loc>
     
     <lastmod>2021-05-26</lastmod>
     
   </url>
   
   <url>
-    <loc>http://foxzzz.com/site-collection/</loc>
+    <loc>https://www.foxzzz.com/site-collection/</loc>
     
     <lastmod>2021-05-26</lastmod>
     
   </url>
   
   <url>
-    <loc>http://foxzzz.com/queue-with-thread-synchronization/</loc>
+    <loc>https://www.foxzzz.com/queue-with-thread-synchronization/</loc>
     
     <lastmod>2021-05-26</lastmod>
     
   </url>
   
   <url>
-    <loc>http://foxzzz.com/about/index.html</loc>
+    <loc>https://www.foxzzz.com/about/index.html</loc>
     
     <lastmod>2021-05-26</lastmod>
     
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/index.html</loc>
+    <loc>https://www.foxzzz.com/tags/index.html</loc>
     
     <lastmod>2021-05-25</lastmod>
     
@@ -59,7 +59,7 @@
   
 
   <url>
-    <loc>http://foxzzz.com/</loc>
+    <loc>https://www.foxzzz.com/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -67,91 +67,91 @@
 
   
   <url>
-    <loc>http://foxzzz.com/tags/C-C/</loc>
+    <loc>https://www.foxzzz.com/tags/C-C/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/heap/</loc>
+    <loc>https://www.foxzzz.com/tags/heap/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/QT/</loc>
+    <loc>https://www.foxzzz.com/tags/QT/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/MySQL/</loc>
+    <loc>https://www.foxzzz.com/tags/MySQL/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/delete/</loc>
+    <loc>https://www.foxzzz.com/tags/delete/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/delete/</loc>
+    <loc>https://www.foxzzz.com/tags/delete/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/linux/</loc>
+    <loc>https://www.foxzzz.com/tags/%E7%BD%91%E7%AB%99%E6%94%B6%E8%97%8F/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/pthread/</loc>
+    <loc>https://www.foxzzz.com/tags/%E5%B0%8F%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/queue/</loc>
+    <loc>https://www.foxzzz.com/tags/linux/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/synchronization/</loc>
+    <loc>https://www.foxzzz.com/tags/pthread/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/%E7%BD%91%E7%AB%99%E6%94%B6%E8%97%8F/</loc>
+    <loc>https://www.foxzzz.com/tags/queue/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/%E5%B0%8F%E5%B7%A5%E5%85%B7/</loc>
+    <loc>https://www.foxzzz.com/tags/synchronization/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://foxzzz.com/tags/vs2019/</loc>
+    <loc>https://www.foxzzz.com/tags/vs2019/</loc>
     <lastmod>2021-05-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
