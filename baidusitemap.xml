@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.foxzzz.com/Huffman-Code-Demo/</loc>
+    <lastmod>2021-05-31</lastmod>
+  </url>
+  <url>
     <loc>https://www.foxzzz.com/C-Min-Heap/</loc>
-    <lastmod>2021-05-27</lastmod>
+    <lastmod>2021-05-30</lastmod>
   </url>
   <url>
     <loc>https://www.foxzzz.com/cpp-array-delete/</loc>
