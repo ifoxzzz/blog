@@ -125,7 +125,7 @@
 </ul>
 <p><a href="https://github.com/ifoxzzz/cpp-quiz/archive/refs/heads/master.zip">cpp-quiz</a></p>
 <ul>
-<li>压缩包根目录下的每个 <code>*.cpp</code>源文件是一道题，启动 <code>Dev-C++</code> 开发环境，拖拽其中一个文件到 <code>Dev-C++</code> 开发环境的窗口界面</li>
+<li>解压目录下的每个 <code>*.cpp</code>源文件是一道题，启动 <code>Dev-C++</code> 开发环境，拖拽其中一个文件到 <code>Dev-C++</code> 开发环境的窗口界面</li>
 </ul>
 <p><img src="/cpp-quiz/1.png" alt="*.cpp to Dev-C++"></p>
 <ul>
