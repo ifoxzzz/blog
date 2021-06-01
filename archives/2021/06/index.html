@@ -20,37 +20,33 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.foxzzz.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:true,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:&quot;gitalk&quot;,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null,&quot;activeClass&quot;:&quot;gitalk&quot;},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
-<meta name="description" content="对习惯了 windows 的我来说，vs2019 有个绝妙的功能就是可以进行 linux 环境下的 c&#x2F;c++ 开发，而在此之前我只能是在 windows 上编辑代码，然后通过 github 同步到 ubuntu 上进行编译，整个过程需要来来回回折腾，所以 vs2019 的这项功能极大提高了我的生产力。 以下记录一些使用过程中遇到的问题和解决方法。 linux头文件同步到本地unistd.h 等头">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vs2019下的linux环境开发">
-<meta property="og:url" content="https://www.foxzzz.com/vs2019-for-linux/index.html">
+<meta name="description" content="未信有情皆是累，但能无病便为仙。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="狐狸の窝">
+<meta property="og:url" content="https://www.foxzzz.com/archives/2021/06/index.html">
 <meta property="og:site_name" content="狐狸の窝">
-<meta property="og:description" content="对习惯了 windows 的我来说，vs2019 有个绝妙的功能就是可以进行 linux 环境下的 c&#x2F;c++ 开发，而在此之前我只能是在 windows 上编辑代码，然后通过 github 同步到 ubuntu 上进行编译，整个过程需要来来回回折腾，所以 vs2019 的这项功能极大提高了我的生产力。 以下记录一些使用过程中遇到的问题和解决方法。 linux头文件同步到本地unistd.h 等头">
+<meta property="og:description" content="未信有情皆是累，但能无病便为仙。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.foxzzz.com/vs2019-for-linux/1.png">
-<meta property="og:image" content="https://www.foxzzz.com/vs2019-for-linux/2.png">
-<meta property="og:image" content="https://www.foxzzz.com/vs2019-for-linux/3.png">
-<meta property="og:image" content="https://www.foxzzz.com/vs2019-for-linux/4.png">
-<meta property="og:image" content="https://www.foxzzz.com/vs2019-for-linux/5.png">
-<meta property="article:published_time" content="2021-05-22T05:36:47.000Z">
-<meta property="article:modified_time" content="2021-05-26T04:04:27.601Z">
 <meta property="article:author" content="foxzzz">
-<meta property="article:tag" content="C&#x2F;C++">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="c#">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="qt">
+<meta property="article:tag" content="mfc">
 <meta property="article:tag" content="linux">
-<meta property="article:tag" content="pthread">
-<meta property="article:tag" content="vs2019">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.foxzzz.com/vs2019-for-linux/1.png">
 
 
-<link rel="canonical" href="https://www.foxzzz.com/vs2019-for-linux/">
+<link rel="canonical" href="https://www.foxzzz.com/archives/2021/06/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;www.foxzzz.com&#x2F;vs2019-for-linux&#x2F;&quot;,&quot;path&quot;:&quot;vs2019-for-linux&#x2F;&quot;,&quot;title&quot;:&quot;vs2019下的linux环境开发&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:false,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;&quot;,&quot;path&quot;:&quot;archives&#x2F;2021&#x2F;06&#x2F;index.html&quot;,&quot;title&quot;:&quot;&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>vs2019下的linux环境开发 | 狐狸の窝</title><script src="/js/config.js"></script>
+<title>归档 | 狐狸の窝</title><script src="/js/config.js"></script>
   
 
 
@@ -144,7 +140,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -157,7 +153,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E5%A4%B4%E6%96%87%E4%BB%B6%E5%90%8C%E6%AD%A5%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="nav-number">1.</span> <span class="nav-text">linux头文件同步到本地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pthread"><span class="nav-number">2.</span> <span class="nav-text">pthread</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -220,161 +215,50 @@
 </noscript>
 
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner archive posts-collapse">
 
 
   
-
-
-<div class="post-block">
   
   
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.foxzzz.com/vs2019-for-linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="foxzzz">
-      <meta itemprop="description" content="未信有情皆是累，但能无病便为仙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="狐狸の窝">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          vs2019下的linux环境开发
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-05-22 13:36:47" itemprop="dateCreated datePublished" datetime="2021-05-22T13:36:47+08:00">2021-05-22</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-26 12:04:27" itemprop="dateModified" datetime="2021-05-26T12:04:27+08:00">2021-05-26</time>
-      </span>
-
-  
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
+  <div class="post-block">
+    <div class="post-content">
+      <div class="collection-title">
+        <span class="collection-header">嗯..! 目前共计 8 篇日志。 继续努力。</span>
       </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>646</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
 
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <p>对习惯了 <em>windows</em> 的我来说，<em>vs2019</em> 有个绝妙的功能就是可以进行 <em>linux</em> 环境下的 <em>c/c++</em> 开发，而在此之前我只能是在 <em>windows</em> 上编辑代码，然后通过 <em>github</em> 同步到 <em>ubuntu</em> 上进行编译，整个过程需要来来回回折腾，所以 <em>vs2019</em> 的这项功能极大提高了我的生产力。</p>
-<p>以下记录一些使用过程中遇到的问题和解决方法。</p>
-<h2 id="linux头文件同步到本地"><a href="#linux头文件同步到本地" class="headerlink" title="linux头文件同步到本地"></a>linux头文件同步到本地</h2><p><em>unistd.h</em> 等头文件是unix/linux环境特有，windows上并不存在，所以在编写代码的时候用不了 <em>vs</em> 的智能感知，而且提示出错的红色波浪线让人看着很不舒服，解决办法就是将这类头文件从远程的 <em>linux</em> 机器同步过来，做法如下：</p>
-<ul>
-<li>从菜单栏中选择 <strong>Debug-&gt;Options…</strong></li>
-</ul>
-<p><img src="/vs2019-for-linux/1.png" alt="Debug-&gt;Options..."></p>
-<ul>
-<li><p>进入 <strong>Cross Platform-&gt;Connection Manager-&gt;Remote Headers IntelliSense Manager</strong>，从服务器列表勾选远程的 <em>linux</em> 服务器（因为我的 <em>linux</em> 放在本机的虚拟机中，所以是127.0.0.1）<br><img src="/vs2019-for-linux/2.png" alt="Cross Platform-&gt;Connection Manager-&gt;Remote Headers IntelliSense Manager"></p>
-</li>
-<li><p>可以看到智能感知起作用了<br><img src="/vs2019-for-linux/3.png" alt="Linux IntelliSense"></p>
-</li>
-</ul>
-<h2 id="pthread"><a href="#pthread" class="headerlink" title="pthread"></a>pthread</h2><p><em>pthrad</em> 是外部库，如工程中用到，需要在编译的时候手动加上 <em>-lpthread</em> 选项，否则会导致编译出错。但vs2019中没找到添加编译选项的设置，后来发现只要添加库依赖项就行，做法如下：</p>
-<ul>
-<li>从菜单栏中选择 <em>Project-&gt;xxx Properties</em></li>
-</ul>
-<p><img src="/vs2019-for-linux/4.png" alt="Project-&gt;xxx Properties"></p>
-<ul>
-<li>进入 <em>Linker-&gt;Input-&gt;Library Dependencies</em>，添加上 <em>pthread</em>，重新编译就OK了<br><img src="/vs2019-for-linux/5.png" alt="Linker-&gt;Input-&gt;Library Dependencies"></li>
-</ul>
-
+      
+    <div class="collection-year">
+      <span class="collection-header">2021</span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2021-06-02T00:27:42+08:00"
+              content="2021-06-02">
+          06-02
+        </time>
+      </div>
 
-    <footer class="post-footer">
-          
+      <div class="post-title">
+          <a class="post-title-link" href="/cpp-quiz/" itemprop="url">
+            <span itemprop="name">C/C++初学者练习题库（Dev-C++开发环境）</span>
+          </a>
+      </div>
 
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>本文作者： </strong>foxzzz
-  </li>
-  <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="https://www.foxzzz.com/vs2019-for-linux/" title="vs2019下的linux环境开发">https://www.foxzzz.com/vs2019-for-linux/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-          <div class="post-tags">
-              <a href="/tags/C-C/" rel="tag"># C/C++</a>
-              <a href="/tags/linux/" rel="tag"># linux</a>
-              <a href="/tags/pthread/" rel="tag"># pthread</a>
-              <a href="/tags/vs2019/" rel="tag"># vs2019</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/QT-to-MySQL/" rel="prev" title="QT连接MySQL遇到的坑">
-                  <i class="fa fa-chevron-left"></i> QT连接MySQL遇到的坑
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/site-collection/" rel="next" title="收录一些有用的网站">
-                  收录一些有用的网站 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
+      
+    </header>
   </article>
-</div>
 
 
-
-
-
-
-    <div class="comments gitalk-container"></div><script src="/js/comments.js"></script>
+    </div>
+  </div>
+  
+  
+  
+<script src="/js/comments.js"></script>
 </div>
   </main>
 
@@ -449,7 +333,7 @@
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
 
-<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;ifoxzzz&quot;,&quot;repo&quot;:&quot;ifoxzzz.github.io&quot;,&quot;client_id&quot;:&quot;b995ac457d982336ffc7&quot;,&quot;client_secret&quot;:&quot;35e382ad9ed2d5c0e4ac17970fdb93066b5434a7&quot;,&quot;admin_user&quot;:&quot;ifoxzzz&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.herokuapp.com&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:&quot;zh-CN&quot;,&quot;js&quot;:&quot;&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;path_md5&quot;:&quot;9450be4d0799c9036904e0ac06cce7f6&quot;}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;ifoxzzz&quot;,&quot;repo&quot;:&quot;ifoxzzz.github.io&quot;,&quot;client_id&quot;:&quot;b995ac457d982336ffc7&quot;,&quot;client_secret&quot;:&quot;35e382ad9ed2d5c0e4ac17970fdb93066b5434a7&quot;,&quot;admin_user&quot;:&quot;ifoxzzz&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.herokuapp.com&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:&quot;zh-CN&quot;,&quot;js&quot;:&quot;&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;path_md5&quot;:&quot;8d436b0247b9e914a3ca6100e27b5791&quot;}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>

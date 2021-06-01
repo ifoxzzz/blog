@@ -20,30 +20,35 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.foxzzz.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:true,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:&quot;gitalk&quot;,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null,&quot;activeClass&quot;:&quot;gitalk&quot;},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
-<meta name="description" content="QT 连接 MySQL 的坑不少，记录自己的踩坑经历以备后查。 驱动文件驱动是指 QSqlDatabase::drivers() 输出的列表项，以下是输出项与对应驱动文件所在位置：  Qt&#x2F;Qt5.12.10&#x2F;5.12.10&#x2F;mingw73_64&#x2F;plugins&#x2F;sqldrivers&#x2F;*.dll  这里的5.12.10是我安装的 QT 版本，mingw73 是我安装的 mingw 版本，64是采用">
+<meta name="description" content="几年前制作的一套 C&#x2F;C++ 程序题库，其目的是为了使学生在课堂上熟悉掌握 C&#x2F;C++ 基础知识。程序自带检验和错误反馈功能，并有积分激励机制，当时学校机房电脑只配置了 Dev-C++ 开发环境， 所以为了便于学生使用， 题库的设计也就以在 Dev-C++ 开发环境上使用方便为目的。学生使用后反馈不错，课上的学习氛围有所提高，后来也给过一些想学 C&#x2F;C++ 的朋友，都觉得的确对于 C&#x2F;C++ 初学">
 <meta property="og:type" content="article">
-<meta property="og:title" content="QT连接MySQL遇到的坑">
-<meta property="og:url" content="https://www.foxzzz.com/QT-to-MySQL/index.html">
+<meta property="og:title" content="C&#x2F;C++初学者练习题库（Dev-C++开发环境）">
+<meta property="og:url" content="https://www.foxzzz.com/cpp-quiz/index.html">
 <meta property="og:site_name" content="狐狸の窝">
-<meta property="og:description" content="QT 连接 MySQL 的坑不少，记录自己的踩坑经历以备后查。 驱动文件驱动是指 QSqlDatabase::drivers() 输出的列表项，以下是输出项与对应驱动文件所在位置：  Qt&#x2F;Qt5.12.10&#x2F;5.12.10&#x2F;mingw73_64&#x2F;plugins&#x2F;sqldrivers&#x2F;*.dll  这里的5.12.10是我安装的 QT 版本，mingw73 是我安装的 mingw 版本，64是采用">
+<meta property="og:description" content="几年前制作的一套 C&#x2F;C++ 程序题库，其目的是为了使学生在课堂上熟悉掌握 C&#x2F;C++ 基础知识。程序自带检验和错误反馈功能，并有积分激励机制，当时学校机房电脑只配置了 Dev-C++ 开发环境， 所以为了便于学生使用， 题库的设计也就以在 Dev-C++ 开发环境上使用方便为目的。学生使用后反馈不错，课上的学习氛围有所提高，后来也给过一些想学 C&#x2F;C++ 的朋友，都觉得的确对于 C&#x2F;C++ 初学">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-21T02:27:05.000Z">
-<meta property="article:modified_time" content="2021-05-26T14:41:46.052Z">
+<meta property="og:image" content="https://www.foxzzz.com/cpp-quiz/1.png">
+<meta property="og:image" content="https://www.foxzzz.com/cpp-quiz/2.png">
+<meta property="og:image" content="https://www.foxzzz.com/cpp-quiz/3.png">
+<meta property="og:image" content="https://www.foxzzz.com/cpp-quiz/4.png">
+<meta property="og:image" content="https://www.foxzzz.com/cpp-quiz/5.png">
+<meta property="article:published_time" content="2021-06-01T16:27:42.000Z">
+<meta property="article:modified_time" content="2021-06-01T17:38:44.273Z">
 <meta property="article:author" content="foxzzz">
 <meta property="article:tag" content="C&#x2F;C++">
-<meta property="article:tag" content="QT">
-<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Dev-C++">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.foxzzz.com/cpp-quiz/1.png">
 
 
-<link rel="canonical" href="https://www.foxzzz.com/QT-to-MySQL/">
+<link rel="canonical" href="https://www.foxzzz.com/cpp-quiz/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;www.foxzzz.com&#x2F;QT-to-MySQL&#x2F;&quot;,&quot;path&quot;:&quot;QT-to-MySQL&#x2F;&quot;,&quot;title&quot;:&quot;QT连接MySQL遇到的坑&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;www.foxzzz.com&#x2F;cpp-quiz&#x2F;&quot;,&quot;path&quot;:&quot;cpp-quiz&#x2F;&quot;,&quot;title&quot;:&quot;C&#x2F;C++初学者练习题库（Dev-C++开发环境）&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>QT连接MySQL遇到的坑 | 狐狸の窝</title><script src="/js/config.js"></script>
+<title>C/C++初学者练习题库（Dev-C++开发环境） | 狐狸の窝</title><script src="/js/config.js"></script>
   
 
 
@@ -137,7 +142,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -150,7 +155,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">驱动文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8A%A8%E6%80%81%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">客户端动态库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E9%A9%B1%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">编译驱动</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -224,7 +228,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.foxzzz.com/QT-to-MySQL/">
+    <link itemprop="mainEntityOfPage" href="https://www.foxzzz.com/cpp-quiz/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -237,7 +241,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          QT连接MySQL遇到的坑
+          C/C++初学者练习题库（Dev-C++开发环境）
         </h1>
 
         <div class="post-meta-container">
@@ -247,16 +251,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-05-21 10:27:05" itemprop="dateCreated datePublished" datetime="2021-05-21T10:27:05+08:00">2021-05-21</time>
+      <time title="创建时间：2021-06-02 00:27:42 / 修改时间：01:38:44" itemprop="dateCreated datePublished" datetime="2021-06-02T00:27:42+08:00">2021-06-02</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-26 22:41:46" itemprop="dateModified" datetime="2021-05-26T22:41:46+08:00">2021-05-26</time>
-      </span>
 
   
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
@@ -273,14 +271,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>722</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -291,61 +289,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>QT</strong> 连接 <strong>MySQL</strong> 的坑不少，记录自己的踩坑经历以备后查。</p>
-<h2 id="驱动文件"><a href="#驱动文件" class="headerlink" title="驱动文件"></a>驱动文件</h2><p>驱动是指 <code>QSqlDatabase::drivers()</code> 输出的列表项，以下是输出项与对应驱动文件所在位置：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/*.dll</p>
-</blockquote>
-<p>这里的5.12.10是我安装的 <strong>QT</strong> 版本，<strong>mingw73</strong> 是我安装的 <strong>mingw</strong> 版本，64是采用64位编译，每个人的配置会有所不同，可根据给出的模式检查对应 <strong>QT</strong> 目录是否存在以下两个dll：</p>
-<blockquote>
-<p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
-</blockquote>
-<p>如果缺少，那么 <code>QSqlDatabase::drivers()</code> 输出项将不会出现 <em>‘QMYSQL’</em> ，这是造成无法连接的原因之一，这时候我们就需要自己编译这两个文件，如何编译后面再说。</p>
-<h2 id="客户端动态库"><a href="#客户端动态库" class="headerlink" title="客户端动态库"></a>客户端动态库</h2><p>如果驱动文件存在，但是无法连接 <strong>MySQL</strong> ，那就是缺少 <strong>MySQL</strong> 的客户端动态库，找到 <strong>MySQL</strong> 的安装目录所对应的 <em>libmysql.dll</em> 文件：</p>
-<blockquote>
-<p>mysql-8.0.21-winx64/lib/libmysql.dll</p>
-</blockquote>
-<p>这里的8.0.21是我的 <strong>MySQL</strong> 版本，winx64是64位环境，可与之对照，将 <em>libmysql.dll</em> 复制到：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/mingw73_64/bin/</p>
-</blockquote>
-<p>目录下，注意一点，x86的客户端动态库要放在对应的x86目录，x64的客户端动态库要放在对应的x64目录，别放错了。</p>
-<p>重新编译执行对应版本的 <strong>QT</strong> 程序，如果能成功连接 <strong>MySQL</strong> ，那么问题解决，如果不行，说明 <em>驱动文件</em> 和 <em>客户端动态库</em> 版本不兼容，需要自己重新编译驱动文件（这里的原因多半是 <strong>MySQL</strong> 的客户端动态库是8.x.xx版本而QT中的驱动文件是针对 <strong>MySQL</strong> 的5.x.xx版本编译的）。如果不想亲自编译驱动文件，也有快速解决方法，就是下载低版本的 <strong>MySQL</strong>，从中找出 <em>libmysql.dll</em> 替换。需要说明一点， <strong>MySQL</strong> 客户端动态库需要与 <strong>QT</strong> 中的x86/x64对应，但是无须跟安装的 <strong>MySQL</strong> 服务端对应，换言之，x86的客户端动态库是可以连接x64的 <strong>MySQL</strong> 服务端的。</p>
-<h2 id="编译驱动"><a href="#编译驱动" class="headerlink" title="编译驱动"></a>编译驱动</h2><p>这里是坑最多的地方，<strong>QT</strong> 有些版本是自带 <strong>MySQL</strong> 驱动文件的，但有些版本却又不带，原因可能是 <strong>MySQL</strong> 版本更新导致客户端动态库变化， <strong>QT</strong> 预制的编译好的版本太老无法兼容新的 <strong>MySQL</strong> 版本，所以干脆把这件事留给工程师自己做。</p>
-<p>找到如下工程：</p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/Src/qtbase/src/plugins/sqldrivers/mysql/mysql.pro</p>
-</blockquote>
-<p>启动 <em>Qt Creator</em>，将 <em>mysql.pro</em> 中的这行语句注释：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># QMAKE_USE += mysql</span><br></pre></td></tr></table></figure>
-
-<p>加入两行新语句，注意一点，以下的 <em>C:/mysql-8.0.16-winx64/</em> 是我机器的 <em>MySQL</em> 安装路径，需要换成你自己的，另外，如果路径中含有空格，需要将路径首尾加上双引号：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INCLUDEPATH += C:/mysql-8.0.16-winx64/include/</span><br><span class="line">LIBS += C:mysql-8.0.16-winx64/lib/libmysql.lib</span><br></pre></td></tr></table></figure>
-
-<p>有人说要再加上 <em>DESTDIR</em> 去指定编译的驱动文件生成位置，这个我测试没有效果，不加的话会自动生成到QT安装目录的磁盘根目录下，比如我的 <strong>QT</strong> 安装在C盘，那么就是生成在：</p>
-<blockquote>
-<p>C:/plugins/sqldrivers/</p>
-</blockquote>
-<p>在QT中只需要执行 <strong>编译</strong> 操作而不需要执行 <strong>编译运行</strong> 操作，因为它编译的是dll，不是可执行文件，如果 <strong>编译运行</strong> 将出现找不到执行文件的错误提示。</p>
-<p>编译过程中可能出现找不到 <em>qtsqldrivers-config.pri</em> 的错误提示，这时候可以找一找 </p>
-<blockquote>
-<p>Qt/Qt5.12.10/5.12.10/Src/qtbase/src/plugins/sqldrivers/qsqldriverbase.pri</p>
-</blockquote>
-<p>所在的同级目录是否有一个 <em>configure.pri</em>文件存在，如果存在，则打开 <em>qsqldriverbase.pri</em> 作以下修改：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># include($$shadowed($$PWD)/qtsqldrivers-config.pri)</span><br><span class="line">include(./configure.pri)</span><br></pre></td></tr></table></figure>
-
-<p>也就是注释第一句，添加第二句。操作成功会在目录</p>
-<blockquote>
-<p>C:/plugins/sqldrivers/</p>
-</blockquote>
-<p>生成以下两个dll</p>
-<blockquote>
-<p>qsqlmysql.dll<br>qsqlmysqld.dll</p>
-</blockquote>
-<p>将之拷贝到以下目录即可：</p>
-<blockquote>
-<p><strong>Qt/Qt5.12.10/5.12.10/mingw73_64/plugins/sqldrivers/</strong></p>
-</blockquote>
+        <p>几年前制作的一套 <code>C/C++</code> 程序题库，其目的是为了使学生在课堂上熟悉掌握 <code>C/C++</code> 基础知识。程序自带检验和错误反馈功能，并有积分激励机制，当时学校机房电脑只配置了 <code>Dev-C++</code> 开发环境， 所以为了便于学生使用， 题库的设计也就以在 <code>Dev-C++</code> 开发环境上使用方便为目的。学生使用后反馈不错，课上的学习氛围有所提高，后来也给过一些想学 <code>C/C++</code> 的朋友，都觉得的确对于 <code>C/C++</code> 初学者有一定的帮助。</p>
+<p>这套程序题库有点类似于 <code>Online Judge</code> ，只不过它是在 <code>Dev-C++</code> 本机环境中使用（其实也可以在其他开发环境例如 <code>visual  studio</code>、<code>code::blocks</code> 中使用，但是没有 <code>Dev-C++</code> 那么方便）。但与 <code>Online Judge</code> 而言，两者设计目的完全不同，<code>Online Judge</code> 是黑盒测试，并不会给使用者过多的反馈，代码粘贴到网页中执行也缺乏本机环境的调试，它的目的是对使用者进行能力测验；而这套程序题库的目的是教 <code>C/C++</code> 初学者基础知识，在本机的开发环境中有更好的调试反馈，而且题库也设计得非常基础，逐步建立起学习者的程序思维，并在程序输出的结果不对的时候给予充足的提示信息以帮助初学者纠正错误。</p>
+<p>虽然这套题库的使用非常简单，但是每次有人拿走题库还是少不了要教一遍用法，为方便询问，所以我还是把使用过程写下来。</p>
+<hr>
+<ul>
+<li><p>安装 <code>Dev-C++</code> 开发环境</p>
+</li>
+<li><p>下载题库并解压（先解压，别直接在压缩包中使用）</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/ifoxzzz/cpp-quiz/archive/refs/heads/master.zip">cpp-quiz</a></p>
+<ul>
+<li>压缩包根目录下的每个 <code>*.cpp</code>源文件是一道题，启动 <code>Dev-C++</code> 开发环境，拖拽其中一个文件到 <code>Dev-C++</code> 开发环境的窗口界面</li>
+</ul>
+<p><img src="/cpp-quiz/1.png" alt="*.cpp to Dev-C++"></p>
+<ul>
+<li>根据题目要求，补充代码并编译运行</li>
+</ul>
+<p><img src="/cpp-quiz/2.png" alt="build &amp; run Dev-C++"></p>
+<ul>
+<li>程序测试给出的反馈</li>
+</ul>
+<p><img src="/cpp-quiz/3.png" alt="test list"></p>
+<ul>
+<li>如果全部测试通过，可按下回车查看总得分</li>
+</ul>
+<p><img src="/cpp-quiz/4.png" alt="score"></p>
+<ul>
+<li>如果有测试未通过，可按下回车查看错误提示</li>
+</ul>
+<p><img src="/cpp-quiz/5.png" alt="error"></p>
 
     </div>
 
@@ -363,7 +337,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://www.foxzzz.com/QT-to-MySQL/" title="QT连接MySQL遇到的坑">https://www.foxzzz.com/QT-to-MySQL/</a>
+      <a href="https://www.foxzzz.com/cpp-quiz/" title="C&#x2F;C++初学者练习题库（Dev-C++开发环境）">https://www.foxzzz.com/cpp-quiz/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -373,19 +347,18 @@
 
           <div class="post-tags">
               <a href="/tags/C-C/" rel="tag"># C/C++</a>
-              <a href="/tags/QT/" rel="tag"># QT</a>
-              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+              <a href="/tags/Dev-C/" rel="tag"># Dev-C++</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/Huffman-Code-Demo/" rel="prev" title="C语言实现Huffman的编码和解码">
+                  <i class="fa fa-chevron-left"></i> C语言实现Huffman的编码和解码
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/vs2019-for-linux/" rel="next" title="vs2019下的linux环境开发">
-                  vs2019下的linux环境开发 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -472,7 +445,7 @@
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
 
-<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;ifoxzzz&quot;,&quot;repo&quot;:&quot;ifoxzzz.github.io&quot;,&quot;client_id&quot;:&quot;b995ac457d982336ffc7&quot;,&quot;client_secret&quot;:&quot;35e382ad9ed2d5c0e4ac17970fdb93066b5434a7&quot;,&quot;admin_user&quot;:&quot;ifoxzzz&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.herokuapp.com&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:&quot;zh-CN&quot;,&quot;js&quot;:&quot;&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;path_md5&quot;:&quot;af9032adf5d4818ff758e6e5b6739708&quot;}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;ifoxzzz&quot;,&quot;repo&quot;:&quot;ifoxzzz.github.io&quot;,&quot;client_id&quot;:&quot;b995ac457d982336ffc7&quot;,&quot;client_secret&quot;:&quot;35e382ad9ed2d5c0e4ac17970fdb93066b5434a7&quot;,&quot;admin_user&quot;:&quot;ifoxzzz&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.herokuapp.com&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:&quot;zh-CN&quot;,&quot;js&quot;:&quot;&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;path_md5&quot;:&quot;b817f5600b2811e016ee8bdf0bbecf19&quot;}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
