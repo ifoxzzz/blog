@@ -158,7 +158,14 @@
   </url>
   
   <url>
-    <loc>https://www.foxzzz.com/tags/Dev-C/</loc>
+    <loc>https://www.foxzzz.com/tags/vs2019/</loc>
+    <lastmod>2021-06-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.foxzzz.com/tags/huffman/</loc>
     <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -179,14 +186,7 @@
   </url>
   
   <url>
-    <loc>https://www.foxzzz.com/tags/huffman/</loc>
-    <lastmod>2021-06-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.foxzzz.com/tags/vs2019/</loc>
+    <loc>https://www.foxzzz.com/tags/Dev-C/</loc>
     <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
