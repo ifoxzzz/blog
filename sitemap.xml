@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.foxzzz.com/c-cpp-disorder/</loc>
+    
+    <lastmod>2021-06-07</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.foxzzz.com/cpp-quiz/</loc>
     
     <lastmod>2021-06-02</lastmod>
@@ -74,7 +81,7 @@
 
   <url>
     <loc>https://www.foxzzz.com/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -82,105 +89,112 @@
   
   <url>
     <loc>https://www.foxzzz.com/tags/C-C/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/heap/</loc>
-    <lastmod>2021-06-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.foxzzz.com/tags/delete/</loc>
-    <lastmod>2021-06-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.foxzzz.com/tags/delete/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/QT/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/MySQL/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.foxzzz.com/tags/Dev-C/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <loc>https://www.foxzzz.com/tags/delete/</loc>
+    <lastmod>2021-06-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.foxzzz.com/tags/delete/</loc>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/linux/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/pthread/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/queue/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/synchronization/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.foxzzz.com/tags/Dev-C/</loc>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/%E7%BD%91%E7%AB%99%E6%94%B6%E8%97%8F/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/%E5%B0%8F%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2021-06-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.foxzzz.com/tags/vs2019/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://www.foxzzz.com/tags/huffman/</loc>
-    <lastmod>2021-06-02</lastmod>
+    <lastmod>2021-06-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.foxzzz.com/tags/vs2019/</loc>
+    <lastmod>2021-06-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.foxzzz.com/tags/%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86%E5%99%A8/</loc>
+    <lastmod>2021-06-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
