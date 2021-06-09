@@ -79,35 +79,43 @@
       </tags>
   </entry>
   <entry>
-    <title>C++中delete和delete[]的深层区别</title>
-    <url>/cpp-array-delete/</url>
-    <content><![CDATA[<p>今天又看到群里有人讨论 <strong>C++</strong> 中 <code>delete</code> 和 <code>delete[]</code> 的区别，表层原因大家都了解，因为教科书上说得很明白：<code>new</code> 和 <code>delete</code> 需配对使用， <code>new[]</code> 和 <code>delete[]</code> 需配对使用。</p>
-<p>但若问起在什么情况下针对 <code>new[]</code> 申请的资源可以使用 <code>delete</code> 释放而不会有任何问题，能讲清楚这点的人就很少了。因为这涉及到对 <code>new</code> 、 <code>delete</code> 、 <code>new[]</code> 、 <code>delete[]</code> 内部实现机制的理解。</p>
-<p>根本原因在于， <code>delete</code> 需要调用内存中一个元素的析构函数，而 <code>delete[]</code> 需要调用内存中若干个元素的析构函数，这里就牵涉出一个问题—— <code>delete[]</code> 是如何知道内存中元素的数量的？我们知道 <code>delete[]</code> 中的 <code>[]</code> 并不会传入参数，所以这个数量不会是 <code>delete[]</code> 传过来的，而是在 <code>new[]</code> 的时候保存的，只有这样才得以在 <code>delete[]</code> 的时候依据元素数量逐个调用析构函数。</p>
-<p>接下来说 <code>new[]</code> 如何存储这个数量，首先它会动态申请一段内存，然后在这段内存的首地址空间中存入元素数量，在这个空间之后的内存分配给各元素，<code>new[]</code> 的返回值并不是这段动态内存空间的首地址，而是动态内存空间中存放第一个元素的内存地址。</p>
-<p>以上说的是 <code>delete[]</code> 需要调用元素析构函数的情况，但是C++的哲学是 <strong>Zero-cost Abstraction</strong>，所以对于并没有显式定义析构函数的 <code>struct/class</code> 的对象元素来说，并不需要为其产生析构函数的代码，也就不需要在 <code>delete[]</code> 的时候调用元素的析构函数以增加无谓的运算开销，那么， <code>new[]</code> 也就不用存储这个元素数量。还有一种情况就是如 <code>int</code> 等基本类型作为空间元素的时候，也不存在析构函数的调用，所以跟没有显示定义析构函数的对象元素一样：在 <code>new[]</code> 时候不需要存储元素数量，在 <code>delete[]</code> 时候不需要调用析构函数。</p>
-<p>综上所述， <code>new[]</code> 和 <code>delete[]</code> 的具体行为受对象元素是否存在必须调用析构函数而有所不同。</p>
-<p>一图胜千言，我画了三张图来展现上面说的三种元素情况：</p>
+    <title>C/C++初学者练习题库（Dev-C++开发环境）</title>
+    <url>/cpp-quiz/</url>
+    <content><![CDATA[<p>几年前制作的一套 <code>C/C++</code> 程序题库，其目的是为了使学生在课堂上熟悉掌握 <code>C/C++</code> 基础知识。程序自带检验和错误反馈功能，并有积分激励机制，当时学校机房电脑只配置了 <code>Dev-C++</code> 开发环境， 所以为了便于学生使用，题库的设计也就以在 <code>Dev-C++</code> 开发环境上使用方便为目的。学生使用效果不错，课上的学习氛围有所提高，后来也给过一些想学 <code>C/C++</code> 的朋友，都觉得的确对于 <code>C/C++</code> 初学者有一定的帮助。</p>
+<p>这套程序题库有点类似于 <code>Online Judge</code> ，只不过它是在 <code>Dev-C++</code> 本机环境中使用（其实也可以在其他开发环境例如 <code>visual  studio</code>、<code>code::blocks</code> 中使用，但是没有 <code>Dev-C++</code> 那么方便）。但与 <code>Online Judge</code> 的设计思想完全不同，<code>Online Judge</code> 是黑盒测试，并不会给使用者过多的反馈，代码粘贴到网页中执行也缺乏本机环境的编辑调试能力，它是为算法竞赛而设计；但这套程序题库的设计思想是教会 <code>C/C++</code> 初学者基础知识，所以题库设计难度循序渐进，起到对初学者逐步建立起程序思维的作用，直接在开发环境中编辑和调试代码，有助于初学者对开发环境的熟悉掌握， 并且在程序执行结果不对的时候给予充足的提示信息以帮助初学者纠正错误。</p>
+<p>虽然题库的使用非常简单，但每次还是少不了要教人一遍用法，为方便日后有人再问起，我写个使用教程。</p>
+<hr>
 <ul>
-<li><code>int</code> 作为基本类型：</li>
+<li><p>安装 <code>Dev-C++</code> 开发环境</p>
+</li>
+<li><p>下载题库并解压（先解压，别直接在压缩包中使用）</p>
+</li>
 </ul>
-<p><img src="/cpp-array-delete/1.png" alt="int *ptr = new int[5]"></p>
+<p>下载链接：<a href="https://github.com/ifoxzzz/cpp-quiz/archive/refs/heads/master.zip"><em><strong>cpp-quiz</strong></em></a></p>
 <ul>
-<li>定义了一个 <code>class A</code> ，但是 <code>A</code> 并没有显式定义析构函数：</li>
+<li>解压目录下的每个 <code>*.cpp</code>源文件是独立的一道题，启动 <code>Dev-C++</code> 开发环境，拖拽其中一个文件到 <code>Dev-C++</code> 开发环境的窗口界面</li>
 </ul>
-<p><img src="/cpp-array-delete/2.png" alt="A *ptr = new A[5]"></p>
+<p><img src="/cpp-quiz/1.png" alt="*.cpp to Dev-C++"></p>
 <ul>
-<li>定义了一个 <code>class B</code>，并且 <code>B</code> 显式定义了析构函数：</li>
+<li>根据题目要求，补充代码并编译运行</li>
 </ul>
-<p><img src="/cpp-array-delete/3.png" alt="B *ptr = new B[5]"></p>
-<p>可以看出，对于 <code>int *ptr = new int[5]</code> 和 <code>A *ptr = new A[5]</code> ，因为不涉及存储元素数量和对析构函数的调用，所以 <code>delete</code> 和 <code>delete[]</code> 的操作都仅仅是将传入的地址进行释放而不做其他额外事情。这种情况下，你使用 <code>delete</code> 或者 <code>delete[]</code> 都不会存在任何问题。</p>
-<p>但是对于 <code>B *ptr = new B[5]</code> 却一定要使用 <code>delete[]</code> ，因为传过来的并不是真正的动态内存首地址， <code>delete[]</code> 的内部处理就会变成从传入的内存地址往前偏移获取真正的动态内存首地址，从该首地址空间获取到元素的数量，然后通过数量逐个调用元素的析构函数，完了再用得到的内存首地址释放动态内存。但若使用 <code>delete</code> 就会只调用第一个元素的析构函数，并且将第一个元素的地址作为动态内存首地址进行释放，但是释放错误的内存地址（非申请时候动态内存的首地址）将发生严重错误，如在 <strong>visual studio</strong> 中会直接触发程序异常并崩溃。</p>
-<p>接下来思考另一种情况，如果 <code>B *ptr = new B</code> 操作后使用 <code>delete[]</code> 释放呢？这也会产生非常严重的错误，因为它会根据这个内存地址往前偏移获取数量，但是这个数量值是个不确定的值，所以接下来发生的行为就是在指针越界访问的情况下调用了无数次析构函数，而这些内存空间中并不存在有效元素，该行为将发生程序崩溃，即便该过程程序照常执行，接下来用偏移地址释放内存也会崩溃，总之，程序执行到此已经走火入魔了。 </p>
+<p><img src="/cpp-quiz/2.png" alt="build &amp; run Dev-C++"></p>
+<ul>
+<li>程序测试给出的反馈</li>
+</ul>
+<p><img src="/cpp-quiz/3.png" alt="test list"></p>
+<ul>
+<li>如果全部测试通过，可按下回车查看总得分</li>
+</ul>
+<p><img src="/cpp-quiz/4.png" alt="score"></p>
+<ul>
+<li>如果发生部分测试未通过，可按下回车查看错误提示</li>
+</ul>
+<p><img src="/cpp-quiz/5.png" alt="error"></p>
 ]]></content>
       <tags>
         <tag>C/C++</tag>
-        <tag>delete</tag>
-        <tag>delete[]</tag>
+        <tag>Dev-C++</tag>
       </tags>
   </entry>
   <entry>
@@ -151,6 +159,54 @@
         <tag>pthread</tag>
         <tag>queue</tag>
         <tag>synchronization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++中delete和delete[]的深层区别</title>
+    <url>/cpp-array-delete/</url>
+    <content><![CDATA[<p>今天又看到群里有人讨论 <strong>C++</strong> 中 <code>delete</code> 和 <code>delete[]</code> 的区别，表层原因大家都了解，因为教科书上说得很明白：<code>new</code> 和 <code>delete</code> 需配对使用， <code>new[]</code> 和 <code>delete[]</code> 需配对使用。</p>
+<p>但若问起在什么情况下针对 <code>new[]</code> 申请的资源可以使用 <code>delete</code> 释放而不会有任何问题，能讲清楚这点的人就很少了。因为这涉及到对 <code>new</code> 、 <code>delete</code> 、 <code>new[]</code> 、 <code>delete[]</code> 内部实现机制的理解。</p>
+<p>根本原因在于， <code>delete</code> 需要调用内存中一个元素的析构函数，而 <code>delete[]</code> 需要调用内存中若干个元素的析构函数，这里就牵涉出一个问题—— <code>delete[]</code> 是如何知道内存中元素的数量的？我们知道 <code>delete[]</code> 中的 <code>[]</code> 并不会传入参数，所以这个数量不会是 <code>delete[]</code> 传过来的，而是在 <code>new[]</code> 的时候保存的，只有这样才得以在 <code>delete[]</code> 的时候依据元素数量逐个调用析构函数。</p>
+<p>接下来说 <code>new[]</code> 如何存储这个数量，首先它会动态申请一段内存，然后在这段内存的首地址空间中存入元素数量，在这个空间之后的内存分配给各元素，<code>new[]</code> 的返回值并不是这段动态内存空间的首地址，而是动态内存空间中存放第一个元素的内存地址。</p>
+<p>以上说的是 <code>delete[]</code> 需要调用元素析构函数的情况，但是C++的哲学是 <strong>Zero-cost Abstraction</strong>，所以对于并没有显式定义析构函数的 <code>struct/class</code> 的对象元素来说，并不需要为其产生析构函数的代码，也就不需要在 <code>delete[]</code> 的时候调用元素的析构函数以增加无谓的运算开销，那么， <code>new[]</code> 也就不用存储这个元素数量。还有一种情况就是如 <code>int</code> 等基本类型作为空间元素的时候，也不存在析构函数的调用，所以跟没有显示定义析构函数的对象元素一样：在 <code>new[]</code> 时候不需要存储元素数量，在 <code>delete[]</code> 时候不需要调用析构函数。</p>
+<p>综上所述， <code>new[]</code> 和 <code>delete[]</code> 的具体行为受对象元素是否存在必须调用析构函数而有所不同。</p>
+<p>一图胜千言，我画了三张图来展现上面说的三种元素情况：</p>
+<ul>
+<li><code>int</code> 作为基本类型：</li>
+</ul>
+<p><img src="/cpp-array-delete/1.png" alt="int *ptr = new int[5]"></p>
+<ul>
+<li>定义了一个 <code>class A</code> ，但是 <code>A</code> 并没有显式定义析构函数：</li>
+</ul>
+<p><img src="/cpp-array-delete/2.png" alt="A *ptr = new A[5]"></p>
+<ul>
+<li>定义了一个 <code>class B</code>，并且 <code>B</code> 显式定义了析构函数：</li>
+</ul>
+<p><img src="/cpp-array-delete/3.png" alt="B *ptr = new B[5]"></p>
+<p>可以看出，对于 <code>int *ptr = new int[5]</code> 和 <code>A *ptr = new A[5]</code> ，因为不涉及存储元素数量和对析构函数的调用，所以 <code>delete</code> 和 <code>delete[]</code> 的操作都仅仅是将传入的地址进行释放而不做其他额外事情。这种情况下，你使用 <code>delete</code> 或者 <code>delete[]</code> 都不会存在任何问题。</p>
+<p>但是对于 <code>B *ptr = new B[5]</code> 却一定要使用 <code>delete[]</code> ，因为传过来的并不是真正的动态内存首地址， <code>delete[]</code> 的内部处理就会变成从传入的内存地址往前偏移获取真正的动态内存首地址，从该首地址空间获取到元素的数量，然后通过数量逐个调用元素的析构函数，完了再用得到的内存首地址释放动态内存。但若使用 <code>delete</code> 就会只调用第一个元素的析构函数，并且将第一个元素的地址作为动态内存首地址进行释放，但是释放错误的内存地址（非申请时候动态内存的首地址）将发生严重错误，如在 <strong>visual studio</strong> 中会直接触发程序异常并崩溃。</p>
+<p>接下来思考另一种情况，如果 <code>B *ptr = new B</code> 操作后使用 <code>delete[]</code> 释放呢？这也会产生非常严重的错误，因为它会根据这个内存地址往前偏移获取数量，但是这个数量值是个不确定的值，所以接下来发生的行为就是在指针越界访问的情况下调用了无数次析构函数，而这些内存空间中并不存在有效元素，该行为将发生程序崩溃，即便该过程程序照常执行，接下来用偏移地址释放内存也会崩溃，总之，程序执行到此已经走火入魔了。 </p>
+]]></content>
+      <tags>
+        <tag>C/C++</tag>
+        <tag>delete</tag>
+        <tag>delete[]</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>收录一些有用的网站</title>
+    <url>/site-collection/</url>
+    <content><![CDATA[<p>平时学习会遇到一些有用的网站，将它们收录在这里。</p>
+<ul>
+<li><p><a href="https://csacademy.com/app/graph_editor/">图论算法演示器</a></p>
+</li>
+<li><p><a href="https://www.processon.com/">在线作图工具</a></p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>网站收藏</tag>
+        <tag>小工具</tag>
       </tags>
   </entry>
   <entry>
@@ -237,62 +293,6 @@
       <tags>
         <tag>C/C++</tag>
         <tag>huffman</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>收录一些有用的网站</title>
-    <url>/site-collection/</url>
-    <content><![CDATA[<p>平时学习会遇到一些有用的网站，将它们收录在这里。</p>
-<ul>
-<li><p><a href="https://csacademy.com/app/graph_editor/">图论算法演示器</a></p>
-</li>
-<li><p><a href="https://www.processon.com/">在线作图工具</a></p>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>网站收藏</tag>
-        <tag>小工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C/C++初学者练习题库（Dev-C++开发环境）</title>
-    <url>/cpp-quiz/</url>
-    <content><![CDATA[<p>几年前制作的一套 <code>C/C++</code> 程序题库，其目的是为了使学生在课堂上熟悉掌握 <code>C/C++</code> 基础知识。程序自带检验和错误反馈功能，并有积分激励机制，当时学校机房电脑只配置了 <code>Dev-C++</code> 开发环境， 所以为了便于学生使用，题库的设计也就以在 <code>Dev-C++</code> 开发环境上使用方便为目的。学生使用效果不错，课上的学习氛围有所提高，后来也给过一些想学 <code>C/C++</code> 的朋友，都觉得的确对于 <code>C/C++</code> 初学者有一定的帮助。</p>
-<p>这套程序题库有点类似于 <code>Online Judge</code> ，只不过它是在 <code>Dev-C++</code> 本机环境中使用（其实也可以在其他开发环境例如 <code>visual  studio</code>、<code>code::blocks</code> 中使用，但是没有 <code>Dev-C++</code> 那么方便）。但与 <code>Online Judge</code> 的设计思想完全不同，<code>Online Judge</code> 是黑盒测试，并不会给使用者过多的反馈，代码粘贴到网页中执行也缺乏本机环境的编辑调试能力，它是为算法竞赛而设计；但这套程序题库的设计思想是教会 <code>C/C++</code> 初学者基础知识，所以题库设计难度循序渐进，起到对初学者逐步建立起程序思维的作用，直接在开发环境中编辑和调试代码，有助于初学者对开发环境的熟悉掌握， 并且在程序执行结果不对的时候给予充足的提示信息以帮助初学者纠正错误。</p>
-<p>虽然题库的使用非常简单，但每次还是少不了要教人一遍用法，为方便日后有人再问起，我写个使用教程。</p>
-<hr>
-<ul>
-<li><p>安装 <code>Dev-C++</code> 开发环境</p>
-</li>
-<li><p>下载题库并解压（先解压，别直接在压缩包中使用）</p>
-</li>
-</ul>
-<p>下载链接：<a href="https://github.com/ifoxzzz/cpp-quiz/archive/refs/heads/master.zip"><em><strong>cpp-quiz</strong></em></a></p>
-<ul>
-<li>解压目录下的每个 <code>*.cpp</code>源文件是独立的一道题，启动 <code>Dev-C++</code> 开发环境，拖拽其中一个文件到 <code>Dev-C++</code> 开发环境的窗口界面</li>
-</ul>
-<p><img src="/cpp-quiz/1.png" alt="*.cpp to Dev-C++"></p>
-<ul>
-<li>根据题目要求，补充代码并编译运行</li>
-</ul>
-<p><img src="/cpp-quiz/2.png" alt="build &amp; run Dev-C++"></p>
-<ul>
-<li>程序测试给出的反馈</li>
-</ul>
-<p><img src="/cpp-quiz/3.png" alt="test list"></p>
-<ul>
-<li>如果全部测试通过，可按下回车查看总得分</li>
-</ul>
-<p><img src="/cpp-quiz/4.png" alt="score"></p>
-<ul>
-<li>如果发生部分测试未通过，可按下回车查看错误提示</li>
-</ul>
-<p><img src="/cpp-quiz/5.png" alt="error"></p>
-]]></content>
-      <tags>
-        <tag>C/C++</tag>
-        <tag>Dev-C++</tag>
       </tags>
   </entry>
   <entry>
